@@ -1,0 +1,27 @@
+**Log on to freeprojectscodes.com for more projects!***
+
+**Database Name: sinventoryphp**
+
+**Developed by Kshitij Soni**
+
+**Recommended PHP Version 5.6**
+
+
+**Admin Login Details**
+
+Username: admin
+Password: Password@123
+
+
+অফিসিয়াল Gmail/Email এর নিয়ম
+ID: পদের নাম দিয়ে আইডি খুলতে হবে (যেমনঃ salesadmin5.ovijat@gmail.com)
+Password: নিজের ইচ্ছেমত [শুধুমাত্র IT Engineer এর সাথে পাসওয়ার্ড শেয়ার করুন ডাটাবেসে রাখার জন্য। it.ovijat@gmail.com / Whatsapp: +8801632950179]
+Recovary Phone Number: আপনার অফিসিয়াল নাম্বার (পার্সোনাল নাম্বার দিবেন না)
+Recovary Mail: it.ovijat@gmail.com [IT Engineer এর সাথে যোগাযোগ করে কনফার্ম করে নেবেন]
+
+প্রোফাইল পিকচারে নিজের ছবি দিবেন না। কোম্পানির ছবি দিবেন। 
+প্রোফাইল নাম/ Display Name এ নিজের নাম দিবেন না। নিজের পদের ও কোম্পানির নাম দিবেন। (যেমনঃ Sales Admin Ovijat)
+
+বিশেষ বার্তাঃ MS Excel এর পরিবর্তে Google Sheets ( https://docs.google.com/spreadsheets )চালানোর চেষ্টা করুন।
+যেকোনো IT সহায়তার জন্য IT Engineer এর সাথে যোগাযোগ করুন it.ovijat@gmail.com / Whatsapp: +8801632950179
+
