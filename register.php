@@ -1,6 +1,6 @@
 <?php
 
-//test
+//test new
 session_start();
 if (!isset($_SESSION['SESSION_EMAIL']) && $_SESSION['SESSION_EMAIL'] != "admin") {
     header("Location: index.php");
