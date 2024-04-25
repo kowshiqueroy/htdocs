@@ -52,6 +52,8 @@ if (isset($_REQUEST['submit'])) {
     $mfg = mysqli_real_escape_string($conn, $_REQUEST['mfg']);
     $exp = mysqli_real_escape_string($conn, $_REQUEST['exp']);
 
+    
+
     $reason = mysqli_real_escape_string($conn, $_REQUEST['reason']);
 
     if (!strcmp($reason, "N/A")) {
@@ -179,7 +181,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ins">In +</label>
-                                                    <input id="ins" type="number" name="ins" class="form-control"
+                                                    <input id="ins" type="float" name="ins" class="form-control"
                                                         placeholder="Number/Float" required="required" value="0"
                                                         data-error="Number/Float is required.">
 
@@ -188,7 +190,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="outs">Out -</label>
-                                                    <input id="outs" type="number" name="outs" class="form-control"
+                                                    <input id="outs" type="float" name="outs" class="form-control"
                                                         placeholder="Number/Float" required="required" value="0"
                                                         data-error="Number/Float is required.">
                                                 </div>
@@ -196,7 +198,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="value">Value TAKA</label>
-                                                    <input id="value" type="number" name="value" class="form-control"
+                                                    <input id="value" type="float" name="value" class="form-control"
                                                         placeholder="Total Value" required="required" value="0"
                                                         data-error="value is required.">
                                                 </div>
@@ -258,7 +260,15 @@ if (isset($_REQUEST['submit'])) {
                                                 <div class="form-group">
                                                     <label for="exp">EXP</label>
                                                     <input id="exp" type="text" name="exp" class="form-control"
-                                                        value="<?php echo date("Y-m-d"); ?>" required="required"
+                                                        value="<?php
+                                                        $d=date('Y-m-d');
+
+                                                        $dd=strtotime($d);
+                                                      
+                                                        $ds= date("Y-m-d", strtotime("+1 year", $dd));
+                                                        
+                                                        
+                                                        echo $ds; ?>" required="required"
                                                         data-error="EXP">
                                                 </div>
                                             </div>

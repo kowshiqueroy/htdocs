@@ -23,12 +23,12 @@ if (!strcmp($person, "All")) {
 
 }
 
-$sql = "SELECT * FROM store WHERE role= '$role' AND ins>0 AND status='0' AND DATE(date) >= DATE('$fromdate') AND DATE(date) <= DATE('$todate')
+$sql = "SELECT * FROM store WHERE role= '$role' AND outs>0 AND status='0' AND DATE(date) >= DATE('$fromdate') AND DATE(date) <= DATE('$todate')
 AND item Like '%$item%' AND person like '%$person%' ORDER BY id DESC";
 
 }
 else{
-    $sql = "SELECT * FROM store WHERE role= '$role' AND ins>0 AND status='0' ORDER BY id DESC";
+    $sql = "SELECT * FROM store WHERE role= '$role' AND outs>0 AND status='0' ORDER BY id DESC";
 
 }
 $tn=0;
@@ -103,7 +103,7 @@ Person:
 
         <div class=" text-center">
 
-            <h3><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store In </b> &nbsp;&nbsp;&nbsp;&nbsp;<?php echo date('Y.m.d');?> </h3>
+            <h3><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Out </b> &nbsp;&nbsp;&nbsp;&nbsp;<?php echo date('Y.m.d');?> </h3>
 
         </div>
 
@@ -116,7 +116,7 @@ Person:
                     <th>SL</th>
                     <th class='noprint'>Date</th>
                     <th>Item Name</th>
-                    <th>IN</th>
+                    <th>Out</th>
                    
                     <th>Value</th>
                     <th>Person/Dept</th>
@@ -162,7 +162,7 @@ Person:
                   <td>" . $sl . "</td>
                   <td class='noprint'>" . $row['date'] . "</td>
                   <td>" . $row['item'] . "</td>
-                  <td>" . $row['ins'] . "</td>
+                  <td>" . $row['outs'] . "</td>
                 
                   <td>" . $row['value'] . "</td>
                   <td>" . $row['person'] . "</td>
@@ -235,8 +235,8 @@ Person:
 
                   }
                     $sl++;
-                    $tn+=intval($row['ins']);
-                    $tv+=intval($row['value']);
+                    $tn+=intval($row['outs']);
+                    $tv-=intval($row['value']);
                 }
     } else {
         echo "<h1 class='text-center'>No data available at this moment</h1>";

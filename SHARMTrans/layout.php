@@ -313,11 +313,12 @@
         <a href="stock.php">Stock Report</a>
         <a href="storedb.php">Database</a>
         <br>
-        <a href="#">Efficiency App</a>
+      <a href="#">Efficiency App</a>
         <a href="#">Report</a>
         <a href="#">Database</a>
         <br>
-        <a href="#">></a>
+        
+     
     </div>
 
     <div id="box">

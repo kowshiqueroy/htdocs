@@ -62,7 +62,7 @@ $tod="";
 <div class=" text-center noprint">
 
 <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
-                                    method="get">
+                                    method="post">
 
 From: 
 <input type="text" name="fromdate" value="<?php if (isset($_REQUEST['fromdate'])){ echo $_REQUEST['fromdate'];} else{
