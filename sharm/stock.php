@@ -16,8 +16,8 @@ include "layout.php";
 
     <?php
 
-$fod="";
-$tod="";
+    $fod = "";
+    $tod = "";
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -27,106 +27,88 @@ $tod="";
 
     if (mysqli_num_rows($result) > 0) {
         ?>
-        <style>
-            table {
-                border-collapse: collapse;
-                border-spacing: 0;
-                width: 100%;
-                border: 1px solid #ddd;
-            }
 
-            th,
-            td {
-                text-align: left;
-                padding: 8px;
-
-            }
-
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-                border: solid thin;
-            }
-
-            tr:nth-child(odd) {
-                border: solid thin;
-
-            }
-
-            th {
-                border: solid thin;
-
-
-            }
-        </style>
-
-<div class=" text-center noprint">
-
-<form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
-                                    method="post">
-
-From: 
-<input type="text" name="fromdate" value="<?php if (isset($_REQUEST['fromdate'])){ echo $_REQUEST['fromdate'];} else{
-    $d=date('Y-m-d');
-    $dt = strtotime($d);
-
-    // Add 1 month to the given date using strtotime() function
-    // and output the result in the format "Y-m-d"
-    $fod= date("Y-m-d", strtotime("-1 month", $dt));
-    echo $fod;
-
-
-}
-    
-    ?>"  required>
-To:
-<input type="text" name="todate" value="<?php if (isset($_REQUEST['todate'])){ echo $_REQUEST['todate'];} else{
-
-
-$d=date('Y-m-d');
-$dt = strtotime($d);
-$tod= date("Y-m-d", strtotime("-1 day", $dt));
-echo $tod;
-
-}
-
-
-
-
-?>"  required>
-
-
-
-
-<input type="submit" name="submit" class="btn btn-success btn-send   " value="View">
-
-</form>
-
-</div>
         <div class=" text-center">
+            <h5><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Stock </b>
+                &nbsp;&nbsp;&nbsp;&nbsp; Date:<?php echo date('Y.m.d'); ?> </h5>
 
-        <?php
-    if (isset($_REQUEST['fromdate'])){
-
-        $fod=$_REQUEST['fromdate'];
-      
-    
-    
-    }
-
-    if (isset($_REQUEST['todate'])){
-
-        $tod=$_REQUEST['todate'];
-        
-    
-    
-    }
-   
-?>
-
-            <h3><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Database </b>
-                &nbsp;&nbsp;&nbsp;&nbsp;<?php echo date('Y.m.d'); ?> </h3>
 
         </div>
+
+
+    <div class="noprint">
+
+        <div class="col-lg-12 d-flex justify-content-center ">
+
+            <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>" method="post">
+
+
+                <div class="controls">
+
+                    <div class="row">
+
+                        <input onclick="window.location.replace(window.location.href);" style="height:40px; margin:20px;"
+                            class="btn btn-success btn-send col-sm-2 col-auto" value="Refresh">
+
+
+                        <div class="col-sm-3 col-12 ">
+                            <div class="form-group">
+                                <label for="fromdate">From:</label>
+                                <input type="text" name="fromdate" class="form-control " id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
+                                    echo $_REQUEST['fromdate'];
+                                } else {
+                                    echo date('Y-m-d');
+                                } ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-12 ">
+                            <div class="form-group">
+                                <label for="todate">To:</label>
+                                <input type="text" name="todate" class="form-control " id="todate" value="<?php if (isset($_REQUEST['todate'])) {
+                                    echo $_REQUEST['todate'];
+                                } else {
+                                    echo date('Y-m-d');
+                                } ?>" required>
+                            </div>
+                        </div>
+
+
+                        <input style="height:40px; margin:20px;" type="submit" name="submit"
+                            class="btn btn-success btn-send col-sm-2  col-auto" value="View">
+
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+                            </div>
+
+
+  
+
+            <?php
+            if (isset($_REQUEST['fromdate'])) {
+
+                $fod = $_REQUEST['fromdate'];
+
+
+
+            }
+
+            if (isset($_REQUEST['todate'])) {
+
+                $tod = $_REQUEST['todate'];
+
+
+
+            }
+
+            ?>
+
+
+
+       
 
 
         <div style="overflow-x:auto;">
@@ -174,10 +156,10 @@ echo $tod;
                 // output data of each row
                 $sl = 1;
 
-                $tod2=$tod;
-                $fod2=$fod;
-                $tod= strtotime($tod);
-                $fod= strtotime($fod);
+                $tod2 = $tod;
+                $fod2 = $fod;
+                $tod = strtotime($tod);
+                $fod = strtotime($fod);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo " <tr>
 
@@ -188,7 +170,7 @@ echo $tod;
                     $sl++;
                     $i = $row['item'];
 
-                 
+
 
                     $sql2 = "SELECT  ins,outs,value,date FROM store WHERE role= '$role'AND status=0 AND item='$i'";
 
@@ -218,48 +200,48 @@ echo $tod;
 
 
 
-                            $d=$row2['date'];
+                            $d = $row2['date'];
                             $dt = strtotime($d);
 
-                          
-                         
-                           
-
-                            if($dt<=$tod && $dt>=$fod ){
-
-                               
-
-                            $bti += intval($row2['ins']);
-                            $bto += intval($row2['outs']);
 
 
-                            if (intval($row2['ins']) > 0) {
 
 
-                                $btv += intval($row2['value']);
-                            } else {
-                                $btv -= intval($row2['value']);
+                            if ($dt <= $tod && $dt >= $fod) {
+
+
+
+                                $bti += intval($row2['ins']);
+                                $bto += intval($row2['outs']);
+
+
+                                if (intval($row2['ins']) > 0) {
+
+
+                                    $btv += intval($row2['value']);
+                                } else {
+                                    $btv -= intval($row2['value']);
+                                }
+
+
                             }
 
-
-                            }
-
-                            if($dt<$fod ){
+                            if ($dt < $fod) {
 
                                 $pti += intval($row2['ins']);
                                 $pto += intval($row2['outs']);
-    
-    
+
+
                                 if (intval($row2['ins']) > 0) {
-    
-    
+
+
                                     $ptv += intval($row2['value']);
                                 } else {
                                     $ptv -= intval($row2['value']);
                                 }
-    
-    
-                                }
+
+
+                            }
 
                             $ti += intval($row2['ins']);
                             $to += intval($row2['outs']);

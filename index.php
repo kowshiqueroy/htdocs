@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
             <div class="workinghny-form-grid">
                 <div class="main-mockup">
                     <div class="alert-close">
-                        <span class="fa fa-close"></span>
+                        <span class="fa fa-rocket"></span>
                     </div>
                     <div class="w3l_form align-self">
                         <div class="left_grid_info">
@@ -83,11 +83,11 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                     <div class="content-wthree">
-                        <h2>Login Now</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                        <h2>E-Ovijat Web App</h2>
+                        <p>Developer: kowshiqueroy@gmail.com</p>
                         <?php echo $msg; ?>
                         <form action="" method="post">
-                            <input type="email" class="email" name="email" placeholder="Enter Your Email" required>
+                            <input type="text" class="email" name="email" placeholder="Enter Your Email" required>
                             <input type="password" class="password" name="password" placeholder="Enter Your Password"
                                 style="margin-bottom: 2px;" required>
                             <button name="submit" name="submit" class="btn" type="submit">Login</button>
@@ -103,15 +103,7 @@ if (isset($_POST['submit'])) {
     <!-- //form section start -->
 
     <script src="js/jquery.min.js"></script>
-    <script>
-        $(document).ready(function (c) {
-            $('.alert-close').on('click', function (c) {
-                $('.main-mockup').fadeOut('slow', function (c) {
-                    $('.main-mockup').remove();
-                });
-            });
-        });
-    </script>
+ 
 
 </body>
 

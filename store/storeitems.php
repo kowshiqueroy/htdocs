@@ -12,10 +12,15 @@ if (isset($_REQUEST['del'])) {
     $sql = "UPDATE store SET status='1' WHERE id='$id2' AND byuser='$user'";
 
     if ($conn->query($sql) === TRUE) {
-    //  echo "ID: ".$id2." Deleted successfully";
-    } else {
-      echo "Error Deleting record: " . $conn->error;
-    }
+        $msg = "<div class='alert alert-info'>Deleted</div>";
+     
+ 
+      } else {
+        echo "Error: " . $conn->error;
+        $msg = "<div class='alert alert-info'>Error</div>";
+       
+
+      }
     
  
 
@@ -29,11 +34,15 @@ if (isset($_REQUEST['undo'])) {
       $sql = "UPDATE store SET status='0' WHERE id='$id2' AND byuser='$user'";
   
       if ($conn->query($sql) === TRUE) {
-      //  echo "ID: ".$id2." Deleted successfully";
+        $msg = "<div class='alert alert-info'>Undo Deleted</div>";
+     
+ 
       } else {
-        echo "Error Deleting record: " . $conn->error;
+        echo "Error: " . $conn->error;
+        $msg = "<div class='alert alert-info'>Error</div>";
+       
+
       }
-      
    
   
   }
@@ -102,7 +111,7 @@ if (isset($_REQUEST['submit'])) {
 ?>
 <div class="row">
 
-    <div class="leftbox">
+<div class="col-sm-6">
 
         <!-- /.form-->
         <div class="container">
@@ -125,33 +134,17 @@ if (isset($_REQUEST['submit'])) {
 
             }
             ?>
-            <div class=" text-center">
-
-                <h1>Store App</h1>
-
-            </div>
-            <style>
-                .btn-send {
-                    font-weight: 300;
-                    text-transform: uppercase;
-                    letter-spacing: 0.2em;
-                    width: 80%;
-                    margin-left: 3px;
-                }
-
-                .help-block.with-errors {
-                    color: #ff5050;
-                    margin-top: 5px;
-
-                }
-
-                .row {}
-            </style>
+          
+        
             <div class="row ">
-                <div class="col-lg-12 mx-auto">
-                    <div class="card mt-2 mx-auto p-4 bg-light">
+                <div class="col-sm-12 col-12 ">
+                    <div class="card  bg-light">
                         <div class="card-body bg-light">
+                        <div class=" text-center">
 
+<h1>Store App</h1>
+
+</div>
                             <div class="container">
                                 <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
                                     method="post">
@@ -160,7 +153,7 @@ if (isset($_REQUEST['submit'])) {
 
                                         <div class="row">
 
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="item">Item (Category ProductName SKU PacketSize)</label>
                                                     <select id="select_boxi item" name="item"
@@ -178,7 +171,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="ins">In +</label>
                                                     <input id="ins" type="float" name="ins" class="form-control"
@@ -187,7 +180,7 @@ if (isset($_REQUEST['submit'])) {
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="outs">Out -</label>
                                                     <input id="outs" type="float" name="outs" class="form-control"
@@ -195,7 +188,7 @@ if (isset($_REQUEST['submit'])) {
                                                         data-error="Number/Float is required.">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="value">Value TAKA</label>
                                                     <input id="value" type="float" name="value" class="form-control"
@@ -204,7 +197,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
                                          
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="person">Person/Dept/Company/Shop</label>
                                                     <select id="select_boxp person" name="person"
@@ -223,7 +216,7 @@ if (isset($_REQUEST['submit'])) {
                                             </div>
 
                                          
-                                            <div class="col-md-6">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="slip">Slip Number</label>
                                                     <input id="slip" type="text" name="slip" class="form-control"
@@ -231,7 +224,7 @@ if (isset($_REQUEST['submit'])) {
                                                         data-error="Slip is required.">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="reason">Reason</label>
                                                     <input id="reason" type="text" name="reason" class="form-control"
@@ -240,7 +233,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="date">Entry Date</label>
                                                     <input id="date" type="text" name="date" class="form-control"
@@ -248,7 +241,7 @@ if (isset($_REQUEST['submit'])) {
                                                         data-error="date.">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="mfg">MFG</label>
                                                     <input id="mfg" type="text" name="mfg" class="form-control"
@@ -256,7 +249,7 @@ if (isset($_REQUEST['submit'])) {
                                                         data-error="MFG.">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="exp">EXP</label>
                                                     <input id="exp" type="text" name="exp" class="form-control"
@@ -273,7 +266,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="remarks">Remarks *</label>
                                                     <input id="remarks" type="text" name="remarks" class="form-control"
@@ -286,10 +279,10 @@ if (isset($_REQUEST['submit'])) {
 
                                         <div class="row">
 
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12">
 
                                                 <input type="submit" name="submit"
-                                                    class="btn btn-success btn-send  pt-2 btn-block" value="Save">
+                                                    class="btn btn-success btn-send   btn-block" value="Save">
 
                                             </div>
 
@@ -315,7 +308,13 @@ if (isset($_REQUEST['submit'])) {
 
     </div>
 
-    <div class="rightbox">
+    <div class="col-sm-6 col-12">
+
+    <div class=" text-center">
+
+<h1>Submission Table</h1>
+
+</div>
 
         <?php
 
@@ -331,32 +330,7 @@ if (isset($_REQUEST['submit'])) {
         if (mysqli_num_rows($result) > 0) {
             ?>
 
-
-
-
-
-            <style>
-                table {
-                    width: 100%;
-                    border: 1px solid #ddd;
-                }
-
-                th,
-                td {
-                    text-align: left;
-                    padding: 8px;
-                }
-
-                tr:nth-child(even) {
-                    background-color: #f2f2f2
-                }
-            </style>
-
-            <div class=" text-center">
-
-                <h1>Submission Table</h1>
-
-            </div>
+       
 
 
             <div style="overflow-x:auto;">

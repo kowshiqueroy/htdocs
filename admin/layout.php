@@ -1,10 +1,49 @@
+<?php
+session_start();
+if (!isset($_SESSION['SESSION_EMAIL'])) {
+    header("Location: ../index.php");
+    die();
+}
+
+include '../config.php';
+
+$query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}'");
+
+if (mysqli_num_rows($query) > 0) {
+    $row = mysqli_fetch_assoc($query);
+
+    if ($_SESSION['SESSION_ROLE'] != "admin") {
+
+        header("Location: ../" . $_SESSION['SESSION_ROLE'] . "/index.php");
+
+    }
+}
+$role = $_SESSION['SESSION_ROLE'];
+$user = $_SESSION['SESSION_EMAIL'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Page Title</title>
+    <title>EOvijat</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynamically Add New Option in Select2 using Ajax in PHP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -15,6 +54,28 @@
                 visibility: hidden;
                 display: none;
             }
+
+
+            @page {
+                size: A4;
+                margin: 1cm;
+
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            table td {
+                border: solid 1px #666;
+                width: auto;
+                height: auto;
+                word-wrap: break-word;
+
+            }
+
+            .itemnametb {}
+
         }
 
         /* Style the body */
@@ -56,6 +117,7 @@
             padding: 1px;
             text-decoration: none;
         }
+
         .navbar p {
             float: left;
             display: block;
@@ -64,6 +126,7 @@
             padding: 1px;
             text-decoration: none;
         }
+
         .navbar a {
             float: left;
             display: block;
@@ -79,13 +142,14 @@
         .navbar a.right {
             float: right;
         }
+
         .navbar p.right {
             float: right;
         }
 
         /* Change color on hover */
-        .navbar a:hover {
-          
+        .navbar a b:hover {
+
             color: red;
         }
 
@@ -106,50 +170,54 @@
         }
 
         /* Create two unequal columns that sits next to each other */
-        /* Sidebar/left column */
+        /* Sidebar/left column 
         .leftbox {
-            -ms-flex: 30%;
-            /* IE10 */
-            flex: 30%;
+            -ms-flex: 50%;
+          
+            flex: 50%;
             background-color: #f1f1f1;
             padding-left: 5px;
             padding-right: 5px;
         }
 
-        /* rightbox column */
+   
         .rightbox {
-            -ms-flex: 70%;
-            /* IE10 */
-            flex: 70%;
+            -ms-flex: 50%;
+
+            flex: 50%;
             background-color: white;
-          
+
             padding-left: 5px;
             padding-right: 5px;
         }
 
         .fullbox {
-            -ms-flex: 70%;
-            /* IE10 */
-            flex: 70%;
+
             background-color: white;
-          
             padding-left: 5px;
             padding-right: 5px;
         }
 
-
+        */
         /* Fake image, just for this example */
-        .fakeimg {
-            background-color: #aaa;
-            width: 100%;
-            padding: 20px;
-        }
+
 
         /* Footer */
         .footer {
-            padding: 20px;
+     
             text-align: center;
             background: green;
+            color: white;
+        }
+
+        .footer p {
+          
+        }
+
+        .navbar {
+
+
+            font-size: 20px;
         }
 
         /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
@@ -163,8 +231,14 @@
         @media screen and (max-width: 400px) {
             .navbar a {
                 float: none;
-                width: 100%;
+                width: 50%;
 
+            }
+
+            .navbar {
+
+
+                font-size: 10px;
             }
         }
     </style>
@@ -223,125 +297,78 @@
         }
     </style>
 
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+            border: solid thin;
+        }
+
+        tr:nth-child(odd) {
+            border: solid thin;
+
+        }
+
+        td {
+            border: solid thin;
+
+
+        }
+
+        th {
+            border: solid thin;
+
+
+        }
+    </style>
+
 </head>
 
 <body>
 
     <div id="mySidenav" class="sidenav noprint">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+
+        <a href="index.php">Home</a>
+        <br>
+        <a href="users.php">Users</a>
+        <br>
+
+
     </div>
 
     <div id="box">
-        <div class="header noprint">
-            <h1>My Website</h1>
-            <p>A <b>responsive</b> website created by me.</p>
+        <div class="header noprint   col-lg-12">
+            <h1>E-Ovijat</h1>
+            <p>A <b>Store Inventory</b> management web app</p>
         </div>
 
         <div class="navbar noprint">
-             
-           
-            <span class="active" style="font-size:30px;cursor:pointer" onclick="openNav()"> &#9776; Menu</span>
-            
 
-          
 
-            <a href="../logout.php" class="right">Logout</a>
-            <p class="right"><?php
-                echo $_SESSION['SESSION_EMAIL']." - ".$_SESSION['SESSION_ROLE']
-            ?></p>
-
-        </div>
+            <span class="active menu" style="cursor:pointer" onclick="openNav()"> &#9776; Menu</span>
 
 
 
 
-        
-        <div class="row">
-
-
-            <div class="leftbox">
-                <h2>About Me</h2>
-                <h5>Photo of me:</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-                <h3>More Text</h3>
-                <p>Lorem ipsum dolor sit ame.</p>
-                <div class="fakeimg" style="height:60px;">Image</div><br>
-                <div class="fakeimg" style="height:60px;">Image</div><br>
-                <div class="fakeimg" style="height:60px;">Image</div>
-            </div>
 
 
 
-
-            <div class="rightbox">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>
-                <br>
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>    
-
-            </div>
-
-
-            <div class="fullbox">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>
-                <br>
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>    
-
-            </div>
+            <a href="../logout.php" class="right"><?php
+            echo $_SESSION['SESSION_EMAIL'] . " - " . $_SESSION['SESSION_ROLE']
+                ?> <b>Logout</b></a>
 
         </div>
-
-        <div class="footer noprint">
-            <h2>Footer</h2>
-        </div>
-
-    </div>
-
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("box").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("box").style.marginLeft = "0";
-        }
-    </script>
-
-    <script>
-        function myFunction() {
-            alert("The form was submitted");
-        }
-    </script>
-</body>
-
-</html>

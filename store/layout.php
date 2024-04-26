@@ -1,25 +1,31 @@
 <?php
-        session_start();
-        if (!isset($_SESSION['SESSION_EMAIL'])) {
-            header("Location: ../index.php");
-            die();
-        }
-    
-        include '../config.php';
-    
-        $query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}'");
-    
-        if (mysqli_num_rows($query) > 0) {
-            $row = mysqli_fetch_assoc($query);
-    
-            if($_SESSION['SESSION_ROLE']!="SHARMTrans"){
-    
-                header("Location: ../".$_SESSION['SESSION_ROLE']."/index.php");
-    
-            }
-        }
-    $role=$_SESSION['SESSION_ROLE'];
-    $user=$_SESSION['SESSION_EMAIL'];
+session_start();
+if (!isset($_SESSION['SESSION_EMAIL'])) {
+    header("Location: ../index.php");
+    die();
+}
+
+include '../config.php';
+$role = $_SESSION['SESSION_ROLE'];
+$user = $_SESSION['SESSION_EMAIL'];
+$email = $_SESSION['SESSION_EMAIL'];
+$query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}' AND status='0'");
+
+if (mysqli_num_rows($query) > 0) {
+    $row = mysqli_fetch_assoc($query);
+
+    if (!str_contains($_SERVER['REQUEST_URI'],$role)) {
+
+        header("Location: ../" . $_SESSION['SESSION_ROLE'] . "/index.php");
+
+    }
+}
+else {
+    header("Location: ../logout.php");
+
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,9 +63,9 @@
 
 
             @page {
-                size: A4 ;
-                margin: 1cm; 
-              
+                size: A4;
+                margin: 1cm;
+
             }
 
             body {
@@ -71,12 +77,10 @@
                 width: auto;
                 height: auto;
                 word-wrap: break-word;
-              
-            }
-            .itemnametb{
 
-              
             }
+
+            .itemnametb {}
 
         }
 
@@ -150,7 +154,7 @@
         }
 
         /* Change color on hover */
-        .navbar a:hover {
+        .navbar a b:hover {
 
             color: red;
         }
@@ -172,20 +176,20 @@
         }
 
         /* Create two unequal columns that sits next to each other */
-        /* Sidebar/left column */
+        /* Sidebar/left column 
         .leftbox {
             -ms-flex: 50%;
-            /* IE10 */
+          
             flex: 50%;
             background-color: #f1f1f1;
             padding-left: 5px;
             padding-right: 5px;
         }
 
-        /* rightbox column */
+   
         .rightbox {
             -ms-flex: 50%;
-            /* IE10 */
+
             flex: 50%;
             background-color: white;
 
@@ -194,15 +198,15 @@
         }
 
         .fullbox {
-            
+
             background-color: white;
             padding-left: 5px;
             padding-right: 5px;
         }
 
-
+        */
         /* Fake image, just for this example */
-    
+
 
         /* Footer */
         .footer {
@@ -211,8 +215,9 @@
             background: green;
             color: white;
         }
+
         .footer p {
-           margin: 10px;
+            margin: 10px;
         }
 
         .navbar {
@@ -298,13 +303,51 @@
         }
     </style>
 
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+            border: solid thin;
+        }
+
+        tr:nth-child(odd) {
+            border: solid thin;
+
+        }
+
+        td {
+            border: solid thin;
+
+
+        }
+
+        th {
+            border: solid thin;
+
+
+        }
+    </style>
+
 </head>
 
 <body>
 
     <div id="mySidenav" class="sidenav noprint">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        
+
         <a href="index.php">Home</a>
         <br>
         <a href="storeitems.php">Store App</a>
@@ -313,12 +356,12 @@
         <a href="stock.php">Stock Report</a>
         <a href="storedb.php">Database</a>
         <br>
-      <a href="#">Efficiency App</a>
+        <a href="#">Efficiency App</a>
         <a href="#">Report</a>
         <a href="#">Database</a>
         <br>
-        
-     
+
+
     </div>
 
     <div id="box">
@@ -335,11 +378,11 @@
 
 
 
-           
 
 
-<a href="../logout.php" class="right"><?php
+
+            <a href="../logout.php" class="right"><?php
             echo $_SESSION['SESSION_EMAIL'] . " - " . $_SESSION['SESSION_ROLE']
-                ?> Logout</a>
+                ?> <b>Logout</b></a>
 
         </div>

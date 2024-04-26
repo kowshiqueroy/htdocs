@@ -1,8 +1,12 @@
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="footer noprint">
-    <p>Whatsapp: 01632950179  &nbsp;&nbsp;&nbsp;&nbsp;<b>Developed by Kowshique Roy</b>  &nbsp;&nbsp;&nbsp;&nbsp;Mail: kowshiqueroy@gmail.com</p>
-</div>
+<p class="col-sm-12 col-12">Developer:kowshiqueroy@gmail.com</p></div>
 
 </div>
 
