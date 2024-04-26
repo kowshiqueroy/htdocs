@@ -14,19 +14,7 @@ include "layout.php";
 
 
 
-    <?php
-
-    $fod = "";
-    $tod = "";
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $sql = "SELECT DISTINCT item FROM store WHERE role= '$role' ORDER BY id DESC";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-        ?>
+   
 
         <div class=" text-center">
             <h5><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Stock </b>
@@ -84,7 +72,19 @@ include "layout.php";
         </div>
                             </div>
 
+                            <?php
 
+$fod = "";
+$tod = "";
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT DISTINCT item FROM store WHERE role= '$role' ORDER BY id DESC";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    ?>
   
 
             <?php

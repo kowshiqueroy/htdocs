@@ -9,7 +9,7 @@ include '../config.php';
 $role = $_SESSION['SESSION_ROLE'];
 $user = $_SESSION['SESSION_EMAIL'];
 $email = $_SESSION['SESSION_EMAIL'];
-$query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}' AND status='0'");
+$query = mysqli_query($conn, "SELECT id FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}' AND status='0'");
 
 if (mysqli_num_rows($query) > 0) {
     $row = mysqli_fetch_assoc($query);
@@ -356,9 +356,8 @@ else {
         <a href="stock.php">Stock Report</a>
         <a href="storedb.php">Database</a>
         <br>
-        <a href="#">Efficiency App</a>
-        <a href="#">Report</a>
-        <a href="#">Database</a>
+        <a href="requisition">Requisition App</a>
+     
         <br>
 
 
