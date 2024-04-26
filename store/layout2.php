@@ -20,12 +20,22 @@
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("box").style.marginLeft = "0";
     }
+
+    
 </script>
 
 <script>
     function myFunction() {
         alert("The form was submitted");
     }
+
+
+
+
+    $(document).ready(function () {
+        $(".date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });});
 </script>
 
 

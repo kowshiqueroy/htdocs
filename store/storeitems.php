@@ -236,7 +236,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="date">Entry Date</label>
-                                                    <input id="date" type="text" name="date" class="form-control"
+                                                    <input id="date" type="text" name="date" class='date form-control'
                                                         value="<?php echo date("Y-m-d"); ?>" required="required"
                                                         data-error="date.">
                                                 </div>
@@ -244,7 +244,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="mfg">MFG</label>
-                                                    <input id="mfg" type="text" name="mfg" class="form-control"
+                                                    <input id="mfg" type="text" name="mfg" class='date form-control'
                                                         value="<?php echo date("Y-m-d"); ?>" required="required"
                                                         data-error="MFG.">
                                                 </div>
@@ -252,7 +252,7 @@ if (isset($_REQUEST['submit'])) {
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="exp">EXP</label>
-                                                    <input id="exp" type="text" name="exp" class="form-control"
+                                                    <input id="exp" type="text" name="exp" class='date form-control'
                                                         value="<?php
                                                         $d=date('Y-m-d');
 

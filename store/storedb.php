@@ -42,7 +42,7 @@ include "layout.php";
                 <div class="col-sm-3 col-12 ">
                     <div class="form-group">
                         <label for="fromdate">From:</label>
-                        <input type="text" name="fromdate" class="form-control " id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
+                        <input type="text" name="fromdate" class='date form-control' id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
                             echo $_REQUEST['fromdate'];
                         } else {
                             echo date('Y-m-d');
@@ -52,7 +52,7 @@ include "layout.php";
                 <div class="col-sm-3 col-12 " >
                     <div class="form-group">
                         <label for="todate">To:</label>
-                        <input type="text" name="todate" class="form-control " id="todate" value="<?php if (isset($_REQUEST['todate'])) {
+                        <input type="text" name="todate" class='date form-control' id="todate" value="<?php if (isset($_REQUEST['todate'])) {
                             echo $_REQUEST['todate'];
                         } else {
                             echo date('Y-m-d');
@@ -313,16 +313,23 @@ include "layout.php";
                         $sl--;
                     }
                     $sl++;
+                    if ($row['ins'] > 0) {
+                        $tin+=floatval($row['ins']);
+                        $tval+=floatval($row['value']);
+                     
+                   
+                    }
 
-                    $tin+=floatval($row['ins']);
-                    $tout+=floatval($row['outs']);
-                    $tval+=floatval($row['value']);
+                    if ($row['outs'] > 0) {
+                        $tout+=floatval($row['outs']);
+                        $tval-=floatval($row['value']);
+                    }
+                   
                 }
                 echo " <tr>
 
-                     <td colspan='3'></td>  
-                <td >".$tin."</td>
-                <td >".$tout."</td>
+                     <td colspan='2'></td>  
+                <td colspan='3'>".$tin."-".$tout." =".$tin-$tout."</td>
                 <td >".$tval."</td>
                
              

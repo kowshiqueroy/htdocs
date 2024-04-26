@@ -42,7 +42,7 @@ include "layout.php";
                         <div class="col-sm-3 col-12 ">
                             <div class="form-group">
                                 <label for="fromdate">From:</label>
-                                <input type="text" name="fromdate" class="form-control " id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
+                                <input type="text" name="fromdate" class='date form-control' id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
                                     echo $_REQUEST['fromdate'];
                                 } else {
                                     echo date('Y-m-d');
@@ -52,7 +52,7 @@ include "layout.php";
                         <div class="col-sm-3 col-12 ">
                             <div class="form-group">
                                 <label for="todate">To:</label>
-                                <input type="text" name="todate" class="form-control " id="todate" value="<?php if (isset($_REQUEST['todate'])) {
+                                <input type="text" name="todate" class='date form-control' id="todate" value="<?php if (isset($_REQUEST['todate'])) {
                                     echo $_REQUEST['todate'];
                                 } else {
                                     echo date('Y-m-d');
@@ -74,8 +74,8 @@ include "layout.php";
 
                             <?php
 
-$fod = "";
-$tod = "";
+$fod = date('Y-m-d');
+$tod = date('Y-m-d');
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -124,7 +124,7 @@ if (mysqli_num_rows($result) > 0) {
                 <tr>
                     <th colspan="2"></th>
                     <th colspan="4"><?php echo "Before " . $fod; ?></th>
-                    <th colspan="4"><?php echo $fod . " to " . $tod; ?></th>
+                    <th colspan="4"><?php echo $fod . " To " . $tod; ?></th>
                     <th colspan="4"><?php echo date('Y-m-d'); ?> Today</th>
                 </tr>
                 <tr>

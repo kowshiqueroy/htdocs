@@ -73,7 +73,7 @@ $fromdate = date('Y-m-d');
                         <div class="col-sm-2 col-12 ">
                             <div class="form-group">
                                 <label for="fromdate">From:</label>
-                                <input type="text" name="fromdate" class="form-control " id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
+                                <input type="text" name="fromdate" class='date form-control' id="fromdate" value="<?php if (isset($_REQUEST['fromdate'])) {
                                     echo $_REQUEST['fromdate'];
                                 } else {
                                     echo date('Y-m-d');
@@ -83,7 +83,7 @@ $fromdate = date('Y-m-d');
                         <div class="col-sm-2 col-12 ">
                             <div class="form-group">
                                 <label for="todate">To:</label>
-                                <input type="text" name="todate" class="form-control " id="todate" value="<?php if (isset($_REQUEST['todate'])) {
+                                <input type="text" name="todate" class='date form-control' id="todate" value="<?php if (isset($_REQUEST['todate'])) {
                                     echo $_REQUEST['todate'];
                                 } else {
                                     echo date('Y-m-d');
