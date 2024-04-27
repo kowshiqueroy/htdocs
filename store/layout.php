@@ -280,7 +280,7 @@ else {
         .sidenav a {
             padding: 8px 8px 8px 32px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 15px;
             color: #818181;
             display: block;
             transition: 0.3s;
@@ -374,6 +374,8 @@ else {
         <a href="storedb.php">Database</a>
         <br>
         <a href="requisition.php">Requisition App</a>
+        <a href="requisitionlistuser.php">Your Requisitions</a>
+        <a href="requisitionstock.php">Requisitions Action</a>
      
         <br>
 

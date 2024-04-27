@@ -146,6 +146,7 @@ if (mysqli_num_rows($result) > 0) {
                     <th>Out</th>
                     <th>Value</th>
                     <th>Stock</th>
+                    <th class='noprint'>Req</th>
 
 
 
@@ -276,7 +277,10 @@ if (mysqli_num_rows($result) > 0) {
                         <td>" . $ti . "</td>
                         <td>" . $to . "</td>
                         <td>" . $tv . "</td>
-                        <td>" . $s . "</td> ";
+                        <td>" . $s . "</td> 
+                        
+                        <td class='noprint'><a href='requisition.php?req=" . $row['item']. "'>+</a></td>
+                        ";
                     }
 
                     echo "</tr>";

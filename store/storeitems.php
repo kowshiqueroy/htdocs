@@ -5,24 +5,64 @@ include "layout.php";
 ?>
 <?php
 
+$ri="";
+$rq="";
+$rp="";
+$rr="";
+if (isset($_REQUEST['id'])) {
+
+    $id = mysqli_real_escape_string($conn, $_REQUEST['id']);
+ 
+
+  
+
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT * FROM requisitionlist WHERE id= '$id'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            if ($row['status'] == 0) {
+
+                $ri=$row['item'];
+                $rq=$row['qty'];
+                $rp=$row['person'];
+                $rr=$row['reason'];
+             
+            }
+        
+        
+        }
+    
+    }
+
+
+
+}
 if (isset($_REQUEST['del'])) {
 
-  $id = mysqli_real_escape_string($conn, $_REQUEST['del']);
-  $id2=$id/5877;
+    $id = mysqli_real_escape_string($conn, $_REQUEST['del']);
+    $id2 = $id / 5877;
     $sql = "UPDATE store SET status='1' WHERE id='$id2' AND byuser='$user'";
 
     if ($conn->query($sql) === TRUE) {
         $msg = "<div class='alert alert-info'>Deleted</div>";
-     
- 
-      } else {
+
+
+    } else {
         echo "Error: " . $conn->error;
         $msg = "<div class='alert alert-info'>Error</div>";
-       
 
-      }
-    
- 
+
+    }
+
+
 
 }
 
@@ -30,25 +70,28 @@ if (isset($_REQUEST['del'])) {
 if (isset($_REQUEST['undo'])) {
 
     $id = mysqli_real_escape_string($conn, $_REQUEST['undo']);
-    $id2=$id/5877;
-      $sql = "UPDATE store SET status='0' WHERE id='$id2' AND byuser='$user'";
-  
-      if ($conn->query($sql) === TRUE) {
+    $id2 = $id / 5877;
+    $sql = "UPDATE store SET status='0' WHERE id='$id2' AND byuser='$user'";
+
+    if ($conn->query($sql) === TRUE) {
         $msg = "<div class='alert alert-info'>Undo Deleted</div>";
-     
- 
-      } else {
+
+
+    } else {
         echo "Error: " . $conn->error;
         $msg = "<div class='alert alert-info'>Error</div>";
-       
 
-      }
-   
-  
-  }
-  
+
+    }
+
+
+}
+
 
 if (isset($_REQUEST['submit'])) {
+
+
+
 
     $byuser = mysqli_real_escape_string($conn, $_SESSION['SESSION_EMAIL']);
     $item = mysqli_real_escape_string($conn, $_REQUEST['item']);
@@ -60,8 +103,25 @@ if (isset($_REQUEST['submit'])) {
     $date = mysqli_real_escape_string($conn, $_REQUEST['date']);
     $mfg = mysqli_real_escape_string($conn, $_REQUEST['mfg']);
     $exp = mysqli_real_escape_string($conn, $_REQUEST['exp']);
+    if (isset($_REQUEST['submit'])) {
+    $rid = mysqli_real_escape_string($conn, $_REQUEST['rid']);
 
-    
+    $sql = "UPDATE requisitionlist SET status='2' WHERE id='$rid'";
+
+    if ($conn->query($sql) === TRUE) {
+        $msg = "<div class='alert alert-info'>Updated</div>";
+
+echo $msg;
+    } else {
+        echo "Error: " . $conn->error;
+        $msg = "<div class='alert alert-info'>Error Updating Requision List</div>";
+
+        echo $msg;
+    }
+
+    }
+
+
 
     $reason = mysqli_real_escape_string($conn, $_REQUEST['reason']);
 
@@ -85,8 +145,10 @@ if (isset($_REQUEST['submit'])) {
 
     $role = $_SESSION['SESSION_ROLE'];
 
-    if (($ins>0  AND $outs>0) OR ($ins==0  AND
-     $outs==0) OR $ins<0 OR $out<0 OR ($ins<=0  AND $value<=0) OR ($outs<=0  AND $value<=0)) {
+    if (
+        ($ins > 0 and $outs > 0) or ($ins == 0 and
+            $outs == 0) or $ins < 0 or $outs < 0 or ($ins <= 0 and $value <= 0) or ($outs <= 0 and $value <= 0)
+    ) {
 
         echo '<script> const currentUrl = window.location.href; window.location.replace(currentUrl+"?s=de");</script>';
         die();
@@ -111,7 +173,7 @@ if (isset($_REQUEST['submit'])) {
 ?>
 <div class="row">
 
-<div class="col-sm-6">
+    <div class="col-sm-6">
 
         <!-- /.form-->
         <div class="container">
@@ -125,26 +187,24 @@ if (isset($_REQUEST['submit'])) {
                 } else if ($_GET['s'] == "f") {
 
                     echo "<div class='alert alert-danger'>Something wrong went</div>";
-                }
-
-                else if ($_GET['s'] == "de") {
+                } else if ($_GET['s'] == "de") {
 
                     echo "<div class='alert alert-danger'>Must be > 0 IN/OUT & Value</div>";
                 }
 
             }
             ?>
-          
-        
+
+
             <div class="row ">
                 <div class="col-sm-12 col-12 ">
                     <div class="card  bg-light">
                         <div class="card-body bg-light">
-                        <div class=" text-center">
+                            <div class=" text-center">
 
-<h1>Store App</h1>
+                                <h1>Store App</h1>
 
-</div>
+                            </div>
                             <div class="container">
                                 <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
                                     method="post">
@@ -159,12 +219,13 @@ if (isset($_REQUEST['submit'])) {
                                                     <select id="select_boxi item" name="item"
                                                         class="form-control select2i" required="required"
                                                         data-error="Please specify.">
-                                                        <option value="" selected disabled>Item Name Details
-                                                        </option>
-
-                                                        <?php
-                                                        include 'itemselectbox.php';
+                                                        <?php if (isset($_REQUEST['id'])) {echo "<option selected >".$ri." </option>";}
+                                                        
+                                                        else {  include 'itemselectbox.php'; }
                                                         ?>
+                                                       
+
+                                                      
 
                                                     </select>
 
@@ -176,6 +237,7 @@ if (isset($_REQUEST['submit'])) {
                                                     <label for="ins">In +</label>
                                                     <input id="ins" type="float" name="ins" class="form-control"
                                                         placeholder="Number/Float" required="required" value="0"
+                                                        <?php if (isset($_REQUEST['id'])) {echo "readonly";}?>
                                                         data-error="Number/Float is required.">
 
                                                 </div>
@@ -184,7 +246,12 @@ if (isset($_REQUEST['submit'])) {
                                                 <div class="form-group">
                                                     <label for="outs">Out -</label>
                                                     <input id="outs" type="float" name="outs" class="form-control"
-                                                        placeholder="Number/Float" required="required" value="0"
+                                                        placeholder="Number/Float" required="required" 
+
+                                                        <?php if (isset($_REQUEST['id'])) {echo "value='".$rq."'";}
+                                                        
+                                                        else {  echo "value='0'"; }
+                                                        ?>
                                                         data-error="Number/Float is required.">
                                                 </div>
                                             </div>
@@ -196,18 +263,16 @@ if (isset($_REQUEST['submit'])) {
                                                         data-error="value is required.">
                                                 </div>
                                             </div>
-                                         
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="person">Person/Dept/Company/Shop</label>
                                                     <select id="select_boxp person" name="person"
                                                         class="form-control select2p" required="required"
                                                         data-error="Person/Dept/Company/Shop">
-                                                        <option value="" selected disabled>Person/Dept/Company/Shop
-                                                        </option>
-
-                                                        <?php
-                                                        include 'personselectbox.php';
+                                                        <?php if (isset($_REQUEST['id'])) {echo "<option selected >".$rp." </option>";}
+                                                        
+                                                        else {  include 'personselectbox.php'; }
                                                         ?>
 
                                                     </select>
@@ -215,7 +280,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
 
-                                         
+
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="slip">Slip Number</label>
@@ -228,11 +293,16 @@ if (isset($_REQUEST['submit'])) {
                                                 <div class="form-group">
                                                     <label for="reason">Reason</label>
                                                     <input id="reason" type="text" name="reason" class="form-control"
-                                                        value="N/A" required="required"
+                                                    <?php if (isset($_REQUEST['id'])) {echo "value='".$rq."'";}
+                                                        
+                                                        else {  echo "value='N/A'"; }
+                                                        ?> required="required"
                                                         data-error="Reason is required.">
                                                 </div>
                                             </div>
-
+                                            <?php if (isset($_REQUEST['id'])) {
+                                                 echo "<input type='hidden' value='".$id."' name='rid'>";
+                                            }?>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="date">Entry Date</label>
@@ -254,15 +324,14 @@ if (isset($_REQUEST['submit'])) {
                                                     <label for="exp">EXP</label>
                                                     <input id="exp" type="text" name="exp" class='date form-control'
                                                         value="<?php
-                                                        $d=date('Y-m-d');
+                                                        $d = date('Y-m-d');
 
-                                                        $dd=strtotime($d);
-                                                      
-                                                        $ds= date("Y-m-d", strtotime("+1 year", $dd));
-                                                        
-                                                        
-                                                        echo $ds; ?>" required="required"
-                                                        data-error="EXP">
+                                                        $dd = strtotime($d);
+
+                                                        $ds = date("Y-m-d", strtotime("+1 year", $dd));
+
+
+                                                        echo $ds; ?>" required="required" data-error="EXP">
                                                 </div>
                                             </div>
 
@@ -310,11 +379,11 @@ if (isset($_REQUEST['submit'])) {
 
     <div class="col-sm-6 col-12">
 
-    <div class=" text-center">
+        <div class=" text-center">
 
-<h1>Submission Table</h1>
+            <h1>Submission Table</h1>
 
-</div>
+        </div>
 
         <?php
 
@@ -330,13 +399,13 @@ if (isset($_REQUEST['submit'])) {
         if (mysqli_num_rows($result) > 0) {
             ?>
 
-       
+
 
 
             <div style="overflow-x:auto;">
                 <table>
                     <tr>
-                    <th></th>
+                        <th></th>
                         <th>ID</th>
                         <th>Item Name</th>
                         <th>IN</th>
@@ -350,11 +419,11 @@ if (isset($_REQUEST['submit'])) {
                     <?PHP
                     // output data of each row
                     while ($row = mysqli_fetch_assoc($result)) {
-                        
-                        if ($row['status']==1){
+
+                        if ($row['status'] == 1) {
 
                             echo " <tr style='color:red;'>
-                            <td><a href='".$_SERVER["PHP_SELF"]."?undo=" . intval($row['id'])*5877 . "'>+</a></td>
+                            <td><a href='" . $_SERVER["PHP_SELF"] . "?undo=" . intval($row['id']) * 5877 . "'>+</a></td>
                     <td>" . $row['id'] . "</td>
                     <td>" . $row['item'] . "</td>
                     <td>" . $row['ins'] . "</td>
@@ -364,10 +433,9 @@ if (isset($_REQUEST['submit'])) {
                     <td>" . $row['subd'] . "</td>
                     <td>" . $row['byuser'] . "</td>
                     </tr> ";
-                        }
-                        else{
+                        } else {
                             echo " <tr>
-                            <td><a href='".$_SERVER["PHP_SELF"]."?del=" . intval($row['id'])*5877 . "'>X</a></td>
+                            <td><a href='" . $_SERVER["PHP_SELF"] . "?del=" . intval($row['id']) * 5877 . "'>X</a></td>
                     <td>" . $row['id'] . "</td>
                     <td>" . $row['item'] . "</td>
                     <td>" . $row['ins'] . "</td>
@@ -379,7 +447,7 @@ if (isset($_REQUEST['submit'])) {
                     </tr> ";
 
                         }
-                  
+
                     }
         } else {
             echo "<h1 class='text-center'>No data available at this moment</h1>";
