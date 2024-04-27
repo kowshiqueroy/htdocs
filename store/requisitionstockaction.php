@@ -169,10 +169,11 @@ $id=$_REQUEST['id'];
                     echo "
 
                     <form action='po.php'>
-                    <td colspan='4'>Create Purchase Order: <input name='item' readonly class='form-control' type='text' value='".$row['item']."'></td>
+                    <td colspan='4'>Create Purchase Order: <input name='' readonly class='form-control' type='text' value='".$row['item']."'></td>
                     </tr><tr>
                     <td colspan='4'>Quantity= 
                     <input name='qty' class='form-control' type='text' value='".floatval($row['qty'])-$rs."'>
+                    <input name='id' class='form-control' type='hidden' value='".$row['id']."'>
                     
                     </td></tr><tr>
 
@@ -180,7 +181,15 @@ $id=$_REQUEST['id'];
                     
                     <input name='purchaser' class='form-control' type='text' value='0'>
                     </td>
-                    </tr><tr>
+                    </tr>
+                    tr>
+
+                 
+                    </tr>
+                    
+                    
+                    
+                    <tr>
                     <td colspan='4'>
                     <input class='btn btn-success btn-send   btn-block' type='submit' value='Create Purchase Order'>
                     </form>

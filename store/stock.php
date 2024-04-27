@@ -14,14 +14,14 @@ include "layout.php";
 
 
 
-   
-
-        <div class=" text-center">
-            <h5><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Stock </b>
-                &nbsp;&nbsp;&nbsp;&nbsp; Date:<?php echo date('Y.m.d'); ?> </h5>
 
 
-        </div>
+    <div class=" text-center">
+        <h5><?PHP echo $role; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b> Store Stock </b>
+            &nbsp;&nbsp;&nbsp;&nbsp; Date:<?php echo date('Y.m.d'); ?> </h5>
+
+
+    </div>
 
 
     <div class="noprint">
@@ -35,8 +35,9 @@ include "layout.php";
 
                     <div class="row">
 
-                        <input onclick="window.location.replace(window.location.href);" style="height:40px; margin:20px;"
-                            class="btn btn-success btn-send col-sm-2 col-auto" value="Refresh">
+                        <input onclick="window.location.replace(window.location.href);"
+                            style="height:40px; margin:20px;" class="btn btn-success btn-send col-sm-2 col-auto"
+                            value="Refresh">
 
 
                         <div class="col-sm-3 col-12 ">
@@ -70,45 +71,45 @@ include "layout.php";
             </form>
 
         </div>
-                            </div>
+    </div>
 
-                            <?php
+    <?php
 
-$fod = date('Y-m-d');
-$tod = date('Y-m-d');
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+    $fod = date('Y-m-d');
+    $tod = date('Y-m-d');
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
 
-$sql = "SELECT DISTINCT item FROM store WHERE role= '$role' ORDER BY id DESC";
-$result = mysqli_query($conn, $sql);
+    $sql = "SELECT DISTINCT item FROM store WHERE role= '$role' ORDER BY id DESC";
+    $result = mysqli_query($conn, $sql);
 
-if (mysqli_num_rows($result) > 0) {
-    ?>
-  
-
-            <?php
-            if (isset($_REQUEST['fromdate'])) {
-
-                $fod = $_REQUEST['fromdate'];
+    if (mysqli_num_rows($result) > 0) {
+        ?>
 
 
+        <?php
+        if (isset($_REQUEST['fromdate'])) {
 
-            }
-
-            if (isset($_REQUEST['todate'])) {
-
-                $tod = $_REQUEST['todate'];
+            $fod = $_REQUEST['fromdate'];
 
 
 
-            }
+        }
 
-            ?>
+        if (isset($_REQUEST['todate'])) {
+
+            $tod = $_REQUEST['todate'];
 
 
 
-       
+        }
+
+        ?>
+
+
+
+
 
 
         <div style="overflow-x:auto;">
@@ -279,7 +280,7 @@ if (mysqli_num_rows($result) > 0) {
                         <td>" . $tv . "</td>
                         <td>" . $s . "</td> 
                         
-                        <td class='noprint'><a href='requisition.php?req=" . $row['item']. "'>+</a></td>
+                        <td class='noprint'><a href='requisition.php?req=" . $row['item'] . "'>+</a></td>
                         ";
                     }
 

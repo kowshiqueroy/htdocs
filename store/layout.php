@@ -283,7 +283,7 @@ else {
             font-size: 15px;
             color: #818181;
             display: block;
-            transition: 0.3s;
+            transition:5s;
         }
 
         .sidenav a:hover {
@@ -375,7 +375,8 @@ else {
         <br>
         <a href="requisition.php">Requisition App</a>
         <a href="requisitionlistuser.php">Your Requisitions</a>
-        <a href="requisitionstock.php">Requisitions Action</a>
+        <a href="requisitionstock.php">All Requisitions</a>
+        <a href="po.php">Purchase Orders</a>
      
         <br>
 
