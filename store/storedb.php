@@ -144,7 +144,8 @@ include "layout.php";
     $fromdate = "1997-11-01";
     $todate = date('Y-m-d');
     $word = "";
-
+    
+    $sql = "SELECT * FROM store WHERE role= '$role'  ORDER BY id DESC LIMIT 10";
 
     if (isset($_REQUEST['submit'])) {
 
@@ -205,12 +206,7 @@ include "layout.php";
 
     }
 
-    else {
-        $sql = "SELECT * FROM store WHERE role= '$role' AND status!='0'  ORDER BY id DESC";
-
-
-    }
-
+    
 
 
 

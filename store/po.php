@@ -6,7 +6,93 @@ include "layout.php";
 <?php
 
 
+
+
+
+
+if (isset($_REQUEST['id']) && isset($_REQUEST['purchaser']) && isset($_REQUEST['qty'])) {
+
+    $id = mysqli_real_escape_string($conn, $_REQUEST['id']);
+    $purchaser = mysqli_real_escape_string($conn, $_REQUEST['purchaser']);
+    $poqty = mysqli_real_escape_string($conn, $_REQUEST['qty']);
+  
+    $sql = "UPDATE requisitionlist SET poqty='$poqty',purchaser='$purchaser',status='3' WHERE id='$id'";
+
+    if ($conn->query($sql) === TRUE) {
+        $msg = "<div class='alert alert-info'>Deleted</div>";
+
+
+    } else {
+        echo "Error: " . $conn->error;
+        $msg = "<div class='alert alert-info'>Error</div>";
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+    $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' ORDER BY id DESC LIMIT 10";
+if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
+
+
+       
+    $s=$_REQUEST['search'];
+    $si=$_REQUEST['searchi'];
+    $sp=$_REQUEST['searchp'];  
+
+    if($s==83 && !strcmp($si,"All" ) && !strcmp($sp,"All" )){
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2'  ORDER BY id DESC ";
+
+    } else if ($s==83 && !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (item like '%$si%') ORDER BY id DESC ";
+    }
+
+    else if ($s==83 && !strcmp($si,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (person like '%$sp%') ORDER BY id DESC ";
+    }
+    else if (!strcmp($si,"All") && !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (status='$s') ORDER BY id DESC ";
+    }
+
+    else if ( !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (item like '%$si%' AND status='$s') ORDER BY id DESC ";
+    }
+
+    else if ( !strcmp($si,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (person like '%$sp%' AND status='$s') ORDER BY id DESC ";
+    }
+    else if ($s==83 )   {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' AND (item like '%$si%' AND person like '%$sp%') ORDER BY id DESC ";
+    }
+ 
+
+  
+
+
+   
+
+
+}
 ?>
+
 <div class="row">
 
 
@@ -19,6 +105,126 @@ include "layout.php";
 
         </div>
 
+        <div class="noprint">
+
+        <div class="col-lg-12 d-flex justify-content-center ">
+
+            <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>" method="post">
+
+
+                <div class="controls">
+
+                    <div class="row">
+
+                        <input onclick="window.location.replace(window.location.href);"
+                            style="height:40px; margin:20px;" class="btn btn-success btn-send col-sm-2 col-auto"
+                            value="Refresh">
+
+
+                     
+                        <div class="col-sm-2 col-12 ">
+                            <div class="form-group">
+                                <label for="searchi">Item</label>
+                                <input type="text" name="searchi" class=' form-control' id="searchi" value="<?php if (isset($_REQUEST['searchi'])) {
+                                    echo $_REQUEST['searchi'];
+                                } else {
+                                    echo "All";
+                                } ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 col-12 ">
+                            <div class="form-group">
+                                <label for="searchp">Person</label>
+                                <input type="text" name="searchp" class=' form-control' id="searchp" value="<?php if (isset($_REQUEST['searchp'])) {
+                                    echo $_REQUEST['searchp'];
+                                } else {
+                                    echo "All";
+                                } ?>" required>
+                            </div>
+                        </div> 
+                        <div class="col-sm-2 col-12 ">
+                            <div class="form-group">
+                                <label for="search">Status</label>
+                                <select type="text" name="search" class=' form-control' id="search" required>
+                                <option value='83'>All</option>
+                             
+                                <option value='3'>Need Approval</option>
+                                <option value='4'>Purchasing</option>
+                                <option value='5'>Purchased</option>
+                                  <?php  if (isset($_REQUEST['search']))
+                                  {
+
+                                    if($_REQUEST['search']==83){
+
+                                        echo "  <option selected value='83'>All</option>";
+                                        
+                                        
+                                    }
+                                    else if($_REQUEST['search']==0){
+
+                                        echo "  <option selected value='0'>Waiting</option>";
+                                        
+                                        
+                                    }
+                                    else if($_REQUEST['search']==2){
+
+                                        echo "  <option selected value='2'>Given</option>";
+                                        
+                                        
+                                    }
+
+                                    else if($_REQUEST['search']==3){
+
+                                        echo "  <option selected value='3'>Need Approval</option>";
+                                        
+                                        
+                                    }
+
+                                    else if($_REQUEST['search']==4){
+
+                                        echo "  <option selected value='4'>Purchasing</option>";
+                                        
+                                        
+                                    }
+
+
+                                    else if($_REQUEST['search']==5){
+
+                                        echo "  <option selected value='5'>Purchased</option>";
+                                        
+                                        
+                                    }
+
+
+                                  }
+
+
+                                    ?>
+                                
+                                
+                                
+                               
+
+                            </select>
+                            </div>
+                        </div>
+
+                        
+
+
+
+                        <input style="height:40px; margin:20px;" type="submit" name="submit"
+                            class="btn btn-success btn-send col-sm-2  col-auto" value="View">
+
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
         <?php
 
         // Create connection
@@ -27,15 +233,13 @@ include "layout.php";
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' ORDER BY id DESC LIMIT 10";
+
+        
+
+      
 
 
-
-        if (isset($_REQUEST['all'])) {
-
-            $sql = "SELECT * FROM requisitionlist WHERE status!= '1' ORDER BY id DESC";
-
-        }
+       
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -185,10 +389,7 @@ include "layout.php";
 
                     </tr> ";
 
-                        }
-
-
-                        else if ($row['status'] == 4) {
+                        } else if ($row['status'] == 4) {
                             echo " <tr style='color:red;'>
                             <td >Purchasing</td>
                     <td>" . $row['id'] . "</td>
@@ -226,10 +427,7 @@ include "layout.php";
 
                     </tr> ";
 
-                        }
-
-
-                        else if ($row['status'] == 5) {
+                        } else if ($row['status'] == 5) {
                             echo " <tr style='color:orange;'>
                             <td >Purchased</td>
                     <td>" . $row['id'] . "</td>
@@ -256,7 +454,7 @@ include "layout.php";
 
 
 
-                     echo "";
+                            echo "";
 
 
 
@@ -283,8 +481,6 @@ include "layout.php";
     </div>
 
 
-    <input type="submit" onclick="window.location.replace('requisitionstock.php?all=1');"
-        class="btn btn-success btn-send  mt-2 btn-block" value="View Full List">
 
 </div>
 <?php

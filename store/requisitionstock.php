@@ -4,8 +4,54 @@
 include "layout.php";
 ?>
 <?php
+    $sql = "SELECT * FROM requisitionlist WHERE status!= '1' ORDER BY id DESC LIMIT 10";
+if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
 
 
+       
+    $s=$_REQUEST['search'];
+    $si=$_REQUEST['searchi'];
+    $sp=$_REQUEST['searchp'];  
+
+    if($s==83 && !strcmp($si,"All" ) && !strcmp($sp,"All" )){
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1'  ORDER BY id DESC ";
+
+    } else if ($s==83 && !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%') ORDER BY id DESC ";
+    }
+
+    else if ($s==83 && !strcmp($si,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (person like '%$sp%') ORDER BY id DESC ";
+    }
+    else if (!strcmp($si,"All") && !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (status='$s') ORDER BY id DESC ";
+    }
+
+    else if ( !strcmp($sp,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%' AND status='$s') ORDER BY id DESC ";
+    }
+
+    else if ( !strcmp($si,"All" )  ) {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (person like '%$sp%' AND status='$s') ORDER BY id DESC ";
+    }
+    else if ($s==83 )   {
+
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%' AND person like '%$sp%') ORDER BY id DESC ";
+    }
+ 
+
+  
+
+
+   
+
+
+}
 ?>
 
 <div class="row">
@@ -68,7 +114,55 @@ include "layout.php";
                                 <option value='3'>Need Approval</option>
                                 <option value='4'>Purchasing</option>
                                 <option value='5'>Purchased</option>
+                                  <?php  if (isset($_REQUEST['search']))
+                                  {
 
+                                    if($_REQUEST['search']==83){
+
+                                        echo "  <option selected value='83'>All</option>";
+                                        
+                                        
+                                    }
+                                    else if($_REQUEST['search']==0){
+
+                                        echo "  <option selected value='0'>Waiting</option>";
+                                        
+                                        
+                                    }
+                                    else if($_REQUEST['search']==2){
+
+                                        echo "  <option selected value='2'>Given</option>";
+                                        
+                                        
+                                    }
+
+                                    else if($_REQUEST['search']==3){
+
+                                        echo "  <option selected value='3'>Need Approval</option>";
+                                        
+                                        
+                                    }
+
+                                    else if($_REQUEST['search']==4){
+
+                                        echo "  <option selected value='4'>Purchasing</option>";
+                                        
+                                        
+                                    }
+
+
+                                    else if($_REQUEST['search']==5){
+
+                                        echo "  <option selected value='5'>Purchased</option>";
+                                        
+                                        
+                                    }
+
+
+                                  }
+
+
+                                    ?>
                                 
                                 
                                 
@@ -101,35 +195,8 @@ include "layout.php";
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' ORDER BY id DESC LIMIT 10";
 
-        if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
-
-             
-            $s=$_REQUEST['search'];
-            $si=$_REQUEST['searchi'];
-            $sp=$_REQUEST['searchp'];  
-
-            if($s==83){
-                $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%' OR  
-                person like '%$sp%' ) ORDER BY id DESC ";
-            } else {
-
-                $sql = "SELECT * FROM requisitionlist WHERE status!= '1'  AND (item like '%$si%' OR  
-                person like '%$sp%' OR status ='$s')
-    
-    
-                ORDER BY id DESC ";
-            }
-         
-
-          
-
-
-           
-
-
-        }
+        
 
       
 

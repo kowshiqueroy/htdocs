@@ -259,7 +259,7 @@ echo $msg;
                                                 <div class="form-group">
                                                     <label for="value">Value TAKA</label>
                                                     <input id="value" type="float" name="value" class="form-control"
-                                                        placeholder="Total Value" required="required" value="0"
+                                                        placeholder="Total Value" required="required" value=""
                                                         data-error="value is required.">
                                                 </div>
                                             </div>

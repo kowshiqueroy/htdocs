@@ -28,7 +28,7 @@ if (isset($_REQUEST['del'])) {
 ?>
 <div class="row">
 
-    
+
 
     <div class="col-sm-12 col-12">
 
@@ -39,12 +39,12 @@ if (isset($_REQUEST['del'])) {
         </div>
 
         <?php
-$id="";
-if(isset($_REQUEST['id'])){
+        $id = "";
+        if (isset($_REQUEST['id'])) {
 
-$id=$_REQUEST['id'];
+            $id = $_REQUEST['id'];
 
-}
+        }
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
@@ -63,10 +63,10 @@ $id=$_REQUEST['id'];
                     <tr>
                         <th class=''>Status</th>
 
-                        
 
-                     
-                       
+
+
+
                         <th>Item Name</th>
                         <th>QTY</th>
                         <th>Stock</th>
@@ -77,62 +77,49 @@ $id=$_REQUEST['id'];
                         <th>Remarks</th>
                         <th>Submission</th>
                         <th>By</th>
-                      
+
                         <th>ID</th>
-                        
+
 
                     </tr>
+
+
                     <?PHP
+
                     // output data of each row
                     while ($row = mysqli_fetch_assoc($result)) {
 
                         if ($row['status'] != 1) {
 
-                            echo " <tr>
-                            <td class=''>";
-                            if ($row['status'] == 0){
-
-                                echo "Waiting";
-                            }
-                            
-                            
-                         echo   "</td>
-                   
-                    <td>" . $row['item'] . "</td>
-                    <td>" . $row['qty'] . "</td>"
-             
+                            echo "<tr><td>";
+                            if ($row['status'] == 0) { echo "Waiting"; }
 
 
-                  
-                    ;
-                    
-
-                    $rs=0;
-
-                    $item=$row['item'];
-
-                    $sql2 = "SELECT * FROM store WHERE role='$role' AND status!='1' AND item='$item'";
-                    $result2 = mysqli_query($conn, $sql2);
-            
-                    if (mysqli_num_rows($result2) > 0) {
-
-                        while ($row2 = mysqli_fetch_assoc($result2)) {
-
-                            if ($row2['status'] == 0) {
+                            echo "</td> <td>" . $row['item'] . "</td> <td>" . $row['qty'] . "</td>";
 
 
-                                $rs+= (floatval($row2['ins'])-floatval($row2['outs']));
+                            $rs = 0;
 
-                            }}
-                            
-                    }
+                            $item = $row['item'];
 
-                    else {
+                            $sql2 = "SELECT * FROM store WHERE role='$role' AND status!='1' AND item='$item'";
+                            $result2 = mysqli_query($conn, $sql2);
+
+                            if (mysqli_num_rows($result2) > 0) {
+
+                                while ($row2 = mysqli_fetch_assoc($result2)) {
+
+                                    if ($row2['status'] == 0) {
 
 
-                    }
+                                        $rs += (floatval($row2['ins']) - floatval($row2['outs']));
 
-                    echo " <td>" . $rs . "</td>
+                                    }
+                                }
+
+                            } 
+
+                            echo " <td>" . $rs . "</td>
                     
                     <td>" . $row['person'] . "</td>
                     <td>" . $row['date'] . "</td>
@@ -144,48 +131,58 @@ $id=$_REQUEST['id'];
                     <td>" . $row['byuser'] . "</td>
                  
                     
-                    <td>" . $row['id'] . "</td>";
-
-                     
-                     
-                     echo "
-
-                    </tr> ";
+                    <td>" . $row['id'] . "</td> </tr> ";
 
 
 
 
-                    echo "<tr>";
 
-                    if ($rs>floatval($row['qty'])){
-                        echo " <td colspan='4'>
-                        <a class='btn btn-success btn-send   btn-block' href='storeitems.php?id=".$row['id']."'>Make this Out</a>
-                        
-                        
-                        </td>
-                        </tr><tr>";
-                    }
 
-                    echo "
+                            if ($rs > floatval($row['qty'])) {
+
+                                echo "<tr>";
+                                echo " <td colspan='4'>
+                                       <a class='btn btn-success btn-send   btn-block' href='storeitems.php?id=" . $row['id'] . "'>Make this Out</a>
+                                       </td>
+                                       </tr> ";
+                            }
+
+                            echo " <tr>
 
                     <form action='po.php'>
-                    <td colspan='4'>Create Purchase Order: <input name='' readonly class='form-control' type='text' value='".$row['item']."'></td>
-                    </tr><tr>
+                    <td colspan='4'>Create Purchase Order: <input name='' readonly class='form-control' type='text' value='" . $row['item'] . "'></td>
+                    </tr>
+                    <tr>
                     <td colspan='4'>Quantity= 
-                    <input name='qty' class='form-control' type='text' value='".floatval($row['qty'])-$rs."'>
-                    <input name='id' class='form-control' type='hidden' value='".$row['id']."'>
+                    <input name='qty' class='form-control' type='text' value='";
+                    if((floatval($row['qty']) - $rs)>0){ echo floatval($row['qty']) - $rs;} else {echo'0';} 
+                    echo "'>
+                    <input name='id' class='form-control' type='hidden' value='" . $row['id'] . "'>
                     
-                    </td></tr><tr>
+                    </td></tr>
+                    <tr>
+                    <td colspan='4'>Purchaser:                
+                  
+                    <select name='purchaser' class='form-control' type='text'>
+                    <option>Select</option>
+                    ";
+                    
+                    $sql3 = "SELECT * FROM users WHERE role='purchaser'";
+                    $result3 = mysqli_query($conn, $sql3);
 
-                    <td colspan='4'>Purchaser:
-                    
-                    <input name='purchaser' class='form-control' type='text' value='0'>
+                    if (mysqli_num_rows($result3) > 0) {
+
+                        while ($row3 = mysqli_fetch_assoc($result3)) {
+
+                            echo "<option>".$row3['email']."</option>";
+
+
+                        }
+                    }
+                    echo "</select>
                     </td>
                     </tr>
-                    tr>
-
-                 
-                    </tr>
+                   
                     
                     
                     
@@ -194,10 +191,13 @@ $id=$_REQUEST['id'];
                     <input class='btn btn-success btn-send   btn-block' type='submit' value='Create Purchase Order'>
                     </form>
                     </tr>";
-                        } else {
-                          
-
-                        }
+                        
+                
+                
+                
+                
+                
+                } 
 
                     }
         } else {
@@ -208,7 +208,7 @@ $id=$_REQUEST['id'];
         ?>
             </table>
 
-            
+
         </div>
     </div>
 

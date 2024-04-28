@@ -336,9 +336,25 @@ if (isset($_REQUEST['submit'])) {
                     <td>" . $row['subd'] . "</td>
                     <td>" . $row['byuser'] . "</td>
                     </tr> ";
-                        } else {
+                        } else if ($row['status'] == 0)  {
                             echo " <tr>
                             <td><a href='" . $_SERVER["PHP_SELF"] . "?del=" . intval($row['id']) * 5877 . "'>X</a></td>
+                    <td>" . $row['id'] . "</td>
+                    <td>" . $row['item'] . "</td>
+                    <td>" . $row['qty'] . "</td>
+               
+                    <td>" . $row['value'] . "</td>
+                    <td>" . $row['person'] . "</td>
+                    <td>" . $row['date'] . "</td>
+                    <td>" . $row['subd'] . "</td>
+                    <td>" . $row['byuser'] . "</td>
+                    </tr> ";
+
+                        }
+
+                        else  {
+                            echo " <tr>
+                            <td></td>
                     <td>" . $row['id'] . "</td>
                     <td>" . $row['item'] . "</td>
                     <td>" . $row['qty'] . "</td>

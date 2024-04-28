@@ -377,6 +377,10 @@ else {
         <a href="requisitionlistuser.php">Your Requisitions</a>
         <a href="requisitionstock.php">All Requisitions</a>
         <a href="po.php">Purchase Orders</a>
+        <a href="po.php">Purchase List</a>
+        <a href="po.php">Purchase List</a>
+        <a href="location.php">Invoice</a>
+    
      
         <br>
 
