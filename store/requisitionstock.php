@@ -4,7 +4,7 @@
 include "layout.php";
 ?>
 <?php
-    $sql = "SELECT * FROM requisitionlist WHERE status!= '1' ORDER BY id DESC LIMIT 10";
+    $sql = "SELECT * FROM requisitionlist WHERE status= '0' ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
 
 

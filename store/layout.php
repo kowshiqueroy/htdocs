@@ -372,14 +372,19 @@ else {
         <a href="out.php">Out Report</a>
         <a href="stock.php">Stock Report</a>
         <a href="storedb.php">Database</a>
+        <a href="storepurchaseget.php">PO Receive</a>
         <br>
         <a href="requisition.php">Requisition App</a>
         <a href="requisitionlistuser.php">Your Requisitions</a>
         <a href="requisitionstock.php">All Requisitions</a>
         <a href="po.php">Purchase Orders</a>
-        <a href="po.php">Purchase List</a>
-        <a href="po.php">Purchase List</a>
-        <a href="location.php">Invoice</a>
+
+        <br>
+        <a href="approval.php">PO Approval</a>
+        <br>
+        <a href="purchaselist.php">Purchase List</a>
+        <a href="prchasetotal.php">Purchase Total</a>
+     
     
      
         <br>
