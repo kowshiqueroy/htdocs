@@ -17,7 +17,7 @@ if (isset($_REQUEST['id']) && isset($_REQUEST['purchaser']) && isset($_REQUEST['
     $poqty = mysqli_real_escape_string($conn, $_REQUEST['qty']);
     $s = mysqli_real_escape_string($conn, $_REQUEST['stock']);
   
-    $sql = "UPDATE requisitionlist SET poqty='$poqty',purchaser='$purchaser',status='3',stock='$s' WHERE id='$id'";
+    $sql = "UPDATE requisitionlist SET poqty='$poqty',purchaser='$purchaser',status='3',stock='$s',role='$role' WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
         $msg = "<div class='alert alert-info'>Deleted</div>";

@@ -383,7 +383,7 @@ else {
         <a href="approval.php">PO Approval</a>
         <br>
         <a href="purchaselist.php">Purchase List</a>
-        <a href="prchasetotal.php">Purchase Total</a>
+        <a href="purchasetotal.php">Purchase Total</a>
      
     
      

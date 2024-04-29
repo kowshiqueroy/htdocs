@@ -4,8 +4,16 @@
 include "layout.php";
 ?>
 <?php
+    $sql = "SELECT * FROM requisitionlist WHERE status= '4'  ORDER BY id DESC LIMIT 10";
+
+if (isset($_REQUEST['item'])) {
+
+    $item = mysqli_real_escape_string($conn, $_REQUEST['item']);
+    $sql = "SELECT * FROM requisitionlist WHERE status= '4' AND item='$item' ORDER BY id DESC";
 
 
+
+}
 if (isset($_REQUEST['submitf'])) {
 
     $id = mysqli_real_escape_string($conn, $_REQUEST['id']);
@@ -40,7 +48,6 @@ if (isset($_REQUEST['submitf'])) {
 }
 
 
-    $sql = "SELECT * FROM requisitionlist WHERE status= '4'  ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
 
 
