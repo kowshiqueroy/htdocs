@@ -31,7 +31,7 @@ if (isset($_REQUEST['submitf'])) {
 }
 
 
-    $sql = "SELECT * FROM requisitionlist WHERE status= '5'  ORDER BY id DESC LIMIT 10";
+    $sql = "SELECT * FROM requisitionlist WHERE status= '5' OR fqty>0  ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['searchi'])){
 
 
@@ -42,13 +42,13 @@ if(isset($_REQUEST['searchi'])){
 
     if (strcmp($si,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status= '5' OR status= '4' AND (item like '%$si%') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status= '5' OR fqty>0  AND (item like '%$si%') ORDER BY id DESC ";
     }
 
 
     else  {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status= '5' OR status= '4'  ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status= '5' OR fqty>0   ORDER BY id DESC ";
     }
 
    
