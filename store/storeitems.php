@@ -28,14 +28,14 @@ if (isset($_REQUEST['id'])) {
 
         while ($row = mysqli_fetch_assoc($result)) {
 
-            if ($row['status'] == 0) {
+           
 
                 $ri=$row['item'];
                 $rq=$row['qty'];
                 $rp=$row['person'];
                 $rr=$row['reason'];
              
-            }
+            
         
         
         }
@@ -236,8 +236,9 @@ echo $msg;
                                                 <div class="form-group">
                                                     <label for="ins">In +</label>
                                                     <input id="ins" type="float" name="ins" class="form-control"
-                                                        placeholder="Number/Float" required="required" value="0"
-                                                        <?php if (isset($_REQUEST['id'])) {echo "readonly";}?>
+                                                        placeholder="Number/Float" required="required" 
+                                                        <?php if (isset($_REQUEST['action']) && !strcmp($_REQUEST['action'],"in")) {echo " value='".$rq."'";}
+                                                         else {  echo "readonly value='0'"; }?>
                                                         data-error="Number/Float is required.">
 
                                                 </div>
@@ -247,11 +248,9 @@ echo $msg;
                                                     <label for="outs">Out -</label>
                                                     <input id="outs" type="float" name="outs" class="form-control"
                                                         placeholder="Number/Float" required="required" 
-
-                                                        <?php if (isset($_REQUEST['id'])) {echo "value='".$rq."'";}
-                                                        
-                                                        else {  echo "value='0'"; }
-                                                        ?>
+                                                        <?php if (isset($_REQUEST['action']) && !strcmp($_REQUEST['action'],"out")) {echo " value='".$rq."'";}
+                                                         else {  echo "readonly value='0'"; }?>
+                                                      
                                                         data-error="Number/Float is required.">
                                                 </div>
                                             </div>

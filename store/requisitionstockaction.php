@@ -142,7 +142,8 @@ if (isset($_REQUEST['del'])) {
 
                                 echo "<tr>";
                                 echo " <td colspan='4'>
-                                       <a class='btn btn-success btn-send   btn-block' href='storeitems.php?id=" . $row['id'] . "'>Make this Out</a>
+                                       <a class='btn btn-success btn-send   btn-block' href='storeitems.php?id=" . $row['id'] .
+                                        "&action=out'>Make this Out</a>
                                        </td>
                                        </tr> ";
                             }

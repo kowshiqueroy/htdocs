@@ -182,7 +182,8 @@ if(isset($_REQUEST['searchi'])){
                            if ($row['status'] == 5) {
                             echo " <tr style='color:green;'>
                             <td >Purchased</td>
-                            <td >Done</td>
+                            <td ><a href='storeitems.php?id=".$row['id']."&action=in'>In</a>
+                            <a href='storeitems.php?id=".$row['id']."&action=out'>Out</a></td>
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
                          
@@ -207,7 +208,8 @@ if(isset($_REQUEST['searchi'])){
                         if ($row['status'] == 4 && $row['pqty'] > $row['fqty']) {
                             echo " <tr style='color:blue;'>
                             <td >Partial</td>
-                            <td ></td>
+                            <td ><a href='storeitems.php?id=".$row['id']."&action=in'>In</a>
+                            <a href='storeitems.php?id=".$row['id']."&action=out'>Out</a></td>
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
                          
