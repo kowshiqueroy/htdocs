@@ -9,7 +9,7 @@ include "layout.php";
 
 
 
-    $sql = "SELECT DISTINCT item FROM requisitionlist WHERE (status= '5' OR status= '4')
+    $sql = "SELECT DISTINCT item FROM requisitionlist WHERE (status= '5' OR status= '4') AND role='$role'
       ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['searchi'])){
 
@@ -21,13 +21,13 @@ if(isset($_REQUEST['searchi'])){
 
     if (strcmp($si,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE (status= '5' OR status= '4')  AND (item like '%$si%') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE (status= '5' OR status= '4')  AND (item like '%$si%') AND role='$role' ORDER BY id DESC ";
     }
 
 
     else  {
 
-        $sql = "SELECT * FROM requisitionlist WHERE (status= '5' OR status= '4') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE (status= '5' OR status= '4') AND role='$role' ORDER BY id DESC ";
     }
 
 }
@@ -137,7 +137,7 @@ if(isset($_REQUEST['searchi'])){
 
                                 echo "<td>".$tpqty."</td>";
                                 echo "<td>".$tfqty."</td>";
-                                echo "<td><a href='purchaselist.php?item=".$row['item']."'>Check</a></td>";
+                                echo "<td><a href='storepurchaseget.php?searchi=".$row['item']."'>Check</a></td>";
                             }
 
 

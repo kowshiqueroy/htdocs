@@ -206,7 +206,7 @@ echo $msg;
 
                             </div>
                             <div class="container">
-                                <form id="contact-form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
+                                <form id="contact-form form" role="form" action="<?PHP echo $_SERVER["PHP_SELF"]; ?>"
                                     method="post">
 
                                     <div class="controls">
@@ -216,7 +216,7 @@ echo $msg;
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="item">Item (Category ProductName SKU PacketSize)</label>
-                                                    <select id="select_boxi item" name="item"
+                                                    <select onchange="stock()" id="select_boxi item" name="item"
                                                         class="form-control select2i" required="required"
                                                         data-error="Please specify.">
                                                         <?php if (isset($_REQUEST['id'])) {echo "<option selected >".$ri." </option>";}
@@ -231,14 +231,16 @@ echo $msg;
 
                                                 </div>
                                             </div>
+                                       
 
+  
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="ins">In +</label>
                                                     <input id="ins" type="float" name="ins" class="form-control"
                                                         placeholder="Number/Float" required="required" 
                                                         <?php if (isset($_REQUEST['action']) && !strcmp($_REQUEST['action'],"in")) {echo " value='".$rq."'";}
-                                                         else {  echo "readonly value='0'"; }?>
+                                                         else {  echo " value='0'"; }?>
                                                         data-error="Number/Float is required.">
 
                                                 </div>
@@ -249,7 +251,7 @@ echo $msg;
                                                     <input id="outs" type="float" name="outs" class="form-control"
                                                         placeholder="Number/Float" required="required" 
                                                         <?php if (isset($_REQUEST['action']) && !strcmp($_REQUEST['action'],"out")) {echo " value='".$rq."'";}
-                                                         else {  echo "readonly value='0'"; }?>
+                                                         else {  echo " value='0'"; }?>
                                                       
                                                         data-error="Number/Float is required.">
                                                 </div>
@@ -461,6 +463,23 @@ echo $msg;
 
 
 </div>
+<div																									
+id="message"																									
+style="																									
+display: none;																									
+margin: 20px;																									
+font-weight: bold;																									
+color: green;																									
+padding: 8px;																									
+background-color: beige;																									
+border-radius: 4px;																									
+border-color: aquamarine;																									
+"																									
+></div>
+
+
+
+
 <?php
 
 

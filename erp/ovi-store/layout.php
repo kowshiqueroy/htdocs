@@ -367,6 +367,8 @@ else {
 
         <a href="index.php">Home</a>
         <br>
+      
+       
         <a href="storeitems.php">Store App</a>
         <a href="in.php">In Report</a>
         <a href="out.php">Out Report</a>
@@ -389,6 +391,11 @@ else {
         <a href="purchaselist.php">Purchase List</a>
         <a href="purchasetotal.php">Purchase Total</a>
      
+    
+     
+        <br>
+     
+
     
      
         <br>

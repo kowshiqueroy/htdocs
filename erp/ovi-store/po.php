@@ -4,34 +4,21 @@
 include "layout.php";
 ?>
 <?php
-    $sql = "SELECT * FROM requisitionlist WHERE status= '4'  ORDER BY id DESC LIMIT 10";
-
-if (isset($_REQUEST['item'])) {
-
-    $item = mysqli_real_escape_string($conn, $_REQUEST['item']);
-    $sql = "SELECT * FROM requisitionlist WHERE status= '4' AND item='$item' ORDER BY id DESC";
 
 
 
-}
-if (isset($_REQUEST['submitf'])) {
+
+
+
+if (isset($_REQUEST['id']) && isset($_REQUEST['purchaser']) && isset($_REQUEST['qty'])) {
 
     $id = mysqli_real_escape_string($conn, $_REQUEST['id']);
-    $fqty = mysqli_real_escape_string($conn, $_REQUEST['fqty']);
-    $pqty = mysqli_real_escape_string($conn, $_REQUEST['pqty']);
-    $fcomments = mysqli_real_escape_string($conn, $_REQUEST['fcom']);
-    $value = mysqli_real_escape_string($conn, $_REQUEST['fvalue']);
-   
-    $sql = "UPDATE requisitionlist SET status='5',fqty='$fqty' ,fcomments='$fcomments',fcomments='$fcomments',value='$value'  WHERE id='$id'";
+    $purchaser = mysqli_real_escape_string($conn, $_REQUEST['purchaser']);
+    $poqty = mysqli_real_escape_string($conn, $_REQUEST['qty']);
+    $s = mysqli_real_escape_string($conn, $_REQUEST['stock']);
+  
+    $sql = "UPDATE requisitionlist SET poqty='$poqty',purchaser='$purchaser',status='3',stock='$s',role='$role' WHERE id='$id'";
 
-   
-
-    if($fqty<$pqty){
-        $sql = "UPDATE requisitionlist SET status='4',fqty='$fqty' ,fcomments='$fcomments',fcomments='$fcomments',value='$value'  WHERE id='$id'";
-
-
-
-    }
     if ($conn->query($sql) === TRUE) {
         $msg = "<div class='alert alert-info'>Deleted</div>";
 
@@ -48,6 +35,16 @@ if (isset($_REQUEST['submitf'])) {
 }
 
 
+
+
+
+
+
+
+
+
+
+    $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND status!= '0' AND status!= '2' ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
 
 
@@ -105,7 +102,7 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
 
         <div class=" text-center">
 
-            <h1>All Purchase List</h1>
+            <h1>All Purchase Orders</h1>
 
         </div>
 
@@ -153,7 +150,7 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                                 <select type="text" name="search" class=' form-control' id="search" required>
                                 <option value='83'>All</option>
                              
-                              
+                                <option value='3'>Need Approval</option>
                                 <option value='4'>Purchasing</option>
                                 <option value='5'>Purchased</option>
                                   <?php  if (isset($_REQUEST['search']))
@@ -165,7 +162,25 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                                         
                                         
                                     }
-                                   
+                                    else if($_REQUEST['search']==0){
+
+                                        echo "  <option selected value='0'>Waiting</option>";
+                                        
+                                        
+                                    }
+                                    else if($_REQUEST['search']==2){
+
+                                        echo "  <option selected value='2'>Given</option>";
+                                        
+                                        
+                                    }
+
+                                    else if($_REQUEST['search']==3){
+
+                                        echo "  <option selected value='3'>Need Approval</option>";
+                                        
+                                        
+                                    }
 
                                     else if($_REQUEST['search']==4){
 
@@ -237,71 +252,91 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
             <div style="overflow-x:auto;">
                 <table>
                     <tr>
-                   
                         <th>Status</th>
-                        <th>Action</th>
                         <th>ID</th>
                         <th>Item Name</th>
 
-                      
+                        <th>QTY</th>
+                        <th>Stock</th>
                         <th>Purchaser</th>
-                 
-                        <th>P QTY</th>
-                        <th>F QTY</th>
-                        <th>Comments</th>
-                        <th>F Comments</th>
+                        <th>PO QTY</th>
 
                         <th>Value</th>
-                 
+                        <th>Person</th>
                         <th>Need Date</th>
 
                         <th>Reason</th>
                         <th>Remarks</th>
                         <th>Submission</th>
-                     
+                        <th>By</th>
 
 
 
-                  
+                        <th>Action</th>
 
                     </tr>
                     <?PHP
                     // output data of each row
                     while ($row = mysqli_fetch_assoc($result)) {
 
-                          if ($row['status'] == 4) {
-                            echo " <tr style='color:balck;'>
-                            <td >Purchasing</td>
-                            <td >
-                            
-                            <form action='' method='get'>
-                            <input  type='hidden' required name='id' value='".$row['id']."'>
-                            <input  type='hidden' required name='pqty' value='".$row['pqty']."'>
-                            QTY:<input class='form-control col-sm-12' type='number' required name='fqty' value='".$row['pqty']."'>
-                            Value:<input class='form-control col-sm-12' type='number' required name='fvalue'>
-                            Comments:<input class='form-control col-sm-12' type='text' value='N/A' required name='fcom'>
-                            <input type='submit' name='submitf'
-                            class='btn btn-success btn-send  mt-2 btn-block' value='Save'>
-                            </form>
-                            
-                            
-                            </td>
+                          if ($row['status'] == 3) {
+                            echo " <tr style='color:blue;'>
+                            <td >Need Approval</td>
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
-                         
+                            <td>" . $row['qty'] . "</td>
+                            <td>" . $row['stock'] . "</td>
                             <td>" . $row['purchaser'] . "</td>
-                        
-                            <td>" . $row['pqty'] . "</td>
-                            <td>" . $row['fqty'] . "</td>
-                            <td>" . $row['comments'] . "</td>
-                            <td>" . $row['fcomments'] . "</td>
-                            <td>" . $row['value'] . "</td>
+                            <td>" . $row['poqty'] . "</td>
                        
+                            <td>" . $row['value'] . "</td>
+                            <td>" . $row['person'] . "</td>
                             <td>" . $row['date'] . "</td>
                             <td>" . $row['reason'] . "</td>
                             <td>" . $row['remarks'] . "</td>
                             <td>" . $row['subd'] . "</td>
-                           
+                            <td>" . $row['byuser'] . "</td>
+                  ";
+
+
+
+
+
+
+
+                            echo "                           
+                     <td class='noprint'>";
+
+
+
+                            echo "";
+
+
+
+
+
+
+                            echo "</td>
+
+                    </tr> ";
+
+                        } else if ($row['status'] == 4) {
+                            echo " <tr style='color:red;'>
+                            <td >Purchasing</td>
+                            <td>" . $row['id'] . "</td>
+                            <td>" . $row['item'] . "</td>
+                            <td>" . $row['qty'] . "</td>
+                            <td>" . $row['stock'] . "</td>
+                            <td>" . $row['purchaser'] . "</td>
+                            <td>" . $row['poqty'] . "</td>
+                       
+                            <td>" . $row['value'] . "</td>
+                            <td>" . $row['person'] . "</td>
+                            <td>" . $row['date'] . "</td>
+                            <td>" . $row['reason'] . "</td>
+                            <td>" . $row['remarks'] . "</td>
+                            <td>" . $row['subd'] . "</td>
+                            <td>" . $row['byuser'] . "</td>
                   ";
 
 
@@ -327,24 +362,22 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                     </tr> ";
 
                         } else if ($row['status'] == 5) {
-                            echo " <tr style='color:green;'>
+                            echo " <tr style='color:orange;'>
                             <td >Purchased</td>
-                            <td >Done</td>
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
-                         
+                            <td>" . $row['qty'] . "</td>
+                            <td>" . $row['stock'] . "</td>
                             <td>" . $row['purchaser'] . "</td>
-                        
-                            <td>" . $row['pqty'] . "</td>
-                            <td>" . $row['fqty'] . "</td>
-                            <td>" . $row['comments'] . "</td>
-                            <td>" . $row['fcomments'] . "</td>
-                            <td>" . $row['value'] . "</td>
+                            <td>" . $row['poqty'] . "</td>
                        
+                            <td>" . $row['value'] . "</td>
+                            <td>" . $row['person'] . "</td>
                             <td>" . $row['date'] . "</td>
                             <td>" . $row['reason'] . "</td>
                             <td>" . $row['remarks'] . "</td>
-                            <td>" . $row['subd'] . "</td>   
+                            <td>" . $row['subd'] . "</td>
+                            <td>" . $row['byuser'] . "</td>
                   ";
 
 

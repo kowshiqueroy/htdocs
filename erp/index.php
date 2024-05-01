@@ -85,11 +85,12 @@ if (isset($_POST['submit'])) {
                     <div class="content-wthree">
                         <h2>E-Ovijat Web App</h2>
                         <p>Developer: kowshiqueroy@gmail.com</p>
+                        <a href='dist'>For Distribution Click Here</a>
                         <?php echo $msg; ?>
                         <form action="" method="post">
                             <input type="text" class="email" name="email" placeholder="Enter Your Email" required>
                             <input type="password" class="password" name="password" placeholder="Enter Your Password"
-                                style="margin-bottom: 2px;" required>
+                                style="margin-bottom: 2px;" required> <br><br>
                             <button name="submit" name="submit" class="btn" type="submit">Login</button>
                         </form>
                         <div class="social-icons">
