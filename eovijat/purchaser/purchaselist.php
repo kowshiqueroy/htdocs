@@ -245,7 +245,6 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                         <th>Item Name</th>
 
                       
-                        <th>Purchaser</th>
                  
                         <th>P QTY</th>
                         <th>F QTY</th>
@@ -290,7 +289,6 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
                          
-                            <td>" . $row['purchaser'] . "</td>
                         
                             <td>" . $row['pqty'] . "</td>
                             <td>" . $row['fqty'] . "</td>
@@ -300,7 +298,7 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                        
                             <td>" . $row['date'] . "</td>
                             <td>" . $row['reason'] . "</td>
-                            <td>" . $row['remarks'] . "</td>
+                            <td>" . $row['remarks'] ." ".$row['bystore']. "</td>
                             <td>" . $row['subd'] . "</td>
                            
                   ";
@@ -312,18 +310,7 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
 
 
                             echo "                           
-                     <td class='noprint'>";
-
-
-
-                            echo "";
-
-
-
-
-
-
-                            echo "</td>
+                    
 
                     </tr> ";
 
@@ -334,7 +321,6 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                             <td>" . $row['id'] . "</td>
                             <td>" . $row['item'] . "</td>
                          
-                            <td>" . $row['purchaser'] . "</td>
                         
                             <td>" . $row['pqty'] . "</td>
                             <td>" . $row['fqty'] . "</td>
@@ -344,7 +330,7 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
                        
                             <td>" . $row['date'] . "</td>
                             <td>" . $row['reason'] . "</td>
-                            <td>" . $row['remarks'] . "</td>
+                            <td>" . $row['remarks'] . " ".$row['bystore']."</td>
                             <td>" . $row['subd'] . "</td>   
                   ";
 

@@ -18,7 +18,7 @@ if (isset($_GET['verification'])) {
             $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
         }
     } else {
-        header("Location: index.php");
+      //  header("Location: index.php");
     }
 }
 

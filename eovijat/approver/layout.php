@@ -6,26 +6,20 @@ if (!isset($_SESSION['SESSION_EMAIL'])) {
 }
 
 include '../config.php';
-$role = $_SESSION['SESSION_ROLE'];
-$user = $_SESSION['SESSION_EMAIL'];
-$email = $_SESSION['SESSION_EMAIL'];
-$query = mysqli_query($conn, "SELECT id FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}' AND status='0'");
+
+$query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}'");
 
 if (mysqli_num_rows($query) > 0) {
     $row = mysqli_fetch_assoc($query);
 
-    if (!str_contains($_SERVER['REQUEST_URI'],$role)) {
+    if ($_SESSION['SESSION_ROLE'] != "approver") {
 
         header("Location: ../" . $_SESSION['SESSION_ROLE'] . "/index.php");
 
     }
 }
-else {
-    header("Location: ../logout.php");
-
-
-}
-
+$role = $_SESSION['SESSION_ROLE'];
+$user = $_SESSION['SESSION_EMAIL'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,17 +44,6 @@ else {
     <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css"
         rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		
-		<link rel='stylesheet' href='https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css'>
-		<script src="https://code.jquery.com/ui/1.13.0-rc.3/jquery-ui.min.js" integrity="sha256-R6eRO29lbCyPGfninb/kjIXeRjMOqY3VWPVk6gMhREk=" crossorigin="anonymous"></script>
-		
     <style>
         * {
             box-sizing: border-box;
@@ -91,7 +74,7 @@ else {
 
             }
 
-       
+            .itemnametb {}
 
         }
 
@@ -221,14 +204,14 @@ else {
 
         /* Footer */
         .footer {
-            padding: 01px;
+     
             text-align: center;
             background: green;
             color: white;
         }
 
         .footer p {
-            margin: 10px;
+          
         }
 
         .navbar {
@@ -251,7 +234,7 @@ else {
                 width: 50%;
 
             }
-           
+
             .navbar {
 
 
@@ -280,10 +263,10 @@ else {
         .sidenav a {
             padding: 8px 8px 8px 32px;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 25px;
             color: #818181;
             display: block;
-            transition:5s;
+            transition: 0.3s;
         }
 
         .sidenav a:hover {
@@ -303,7 +286,7 @@ else {
             padding: 16px;
         }
 
-        @media screen and (max-height: 650px) {
+        @media screen and (max-height: 450px) {
             .sidenav {
                 padding-top: 15px;
             }
@@ -311,10 +294,6 @@ else {
             .sidenav a {
                 font-size: 18px;
             }
-
-         
-
-
         }
     </style>
 
@@ -354,8 +333,6 @@ else {
 
 
         }
-
-      
     </style>
 
 </head>
@@ -366,56 +343,9 @@ else {
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
         <a href="index.php">Home</a>
-        <br>
       
-       
-    
-
-<?php
-      if (!str_contains($_SESSION['SESSION_EMAIL'],"view")) {
-
-echo '
-<a href="storeitems.php">Store App</a>
-';
-
-    }
-?>
-        
-        <a href="in.php">In Report</a>
-        <a href="out.php">Out Report</a>
-        <a href="stock.php">Stock Report</a>
-        <a href="storedb.php">Database</a>
-       
         <br>
-
-        <?php
-      if (!str_contains($_SESSION['SESSION_EMAIL'],"view")) {
-
-echo '
-<a href="requisition.php">Requisition App</a>
-<a href="requisitionlistuser.php">Your Requisitions</a>
-<a href="requisitionbalanceuser.php">Requisitions Balance</a>
-
-<br>
-<a href="requisitionstock.php">All Requisitions</a>
-<a href="po.php">Purchase Orders</a>
-<a href="storepurchaseget.php">PO Receive</a>
-<a href="storepurchasetotal.php">Purchase Total</a>
-
-';
-
-    }
-?>
-      
-     
-    
-     
-        <br>
-     
-
-    
-     
-        <br>
+        <a href="approval.php">Approval</a>
 
 
     </div>

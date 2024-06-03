@@ -4,7 +4,7 @@
 include "layout.php";
 ?>
 <?php
-    $sql = "SELECT * FROM requisitionlist WHERE status= '0' ORDER BY id DESC LIMIT 10";
+    $sql = "SELECT * FROM requisitionlist WHERE status= '0' AND bystore='$role' ORDER BY id DESC LIMIT 10";
 if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUEST['searchp'])){
 
 
@@ -14,34 +14,34 @@ if(isset($_REQUEST['search']) AND isset($_REQUEST['searchi']) AND isset($_REQUES
     $sp=$_REQUEST['searchp'];  
 
     if($s==83 && !strcmp($si,"All" ) && !strcmp($sp,"All" )){
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1'  ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' ORDER BY id DESC ";
 
     } else if ($s==83 && !strcmp($sp,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (item like '%$si%') ORDER BY id DESC ";
     }
 
     else if ($s==83 && !strcmp($si,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (person like '%$sp%') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (person like '%$sp%') ORDER BY id DESC ";
     }
     else if (!strcmp($si,"All") && !strcmp($sp,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (status='$s') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (status='$s') ORDER BY id DESC ";
     }
 
     else if ( !strcmp($sp,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%' AND status='$s') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (item like '%$si%' AND status='$s') ORDER BY id DESC ";
     }
 
     else if ( !strcmp($si,"All" )  ) {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (person like '%$sp%' AND status='$s') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (person like '%$sp%' AND status='$s') ORDER BY id DESC ";
     }
     else if ($s==83 )   {
 
-        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND (item like '%$si%' AND person like '%$sp%') ORDER BY id DESC ";
+        $sql = "SELECT * FROM requisitionlist WHERE status!= '1' AND bystore='$role' AND (item like '%$si%' AND person like '%$sp%') ORDER BY id DESC ";
     }
  
 

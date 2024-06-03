@@ -5,8 +5,11 @@
 $role = $_SESSION['SESSION_ROLE'];
 
 $query = "
-  SELECT * FROM select_boxp where role='$role'
-ORDER BY select_box_name ASC
+  SELECT select_box_name AS role FROM select_boxp where role='$role'
+  UNION
+  SELECT role  FROM users 
+  UNION
+  SELECT email  FROM users  WHERE status !=1
 ";
 
 $result = $connect->query($query);
@@ -19,8 +22,9 @@ $result = $connect->query($query);
 
 <?php
 foreach ($result as $row) {
-  echo '<option value="' . $row['select_box_name'] . '">' . $row['select_box_name'] . '</option>';
+  echo '<option >' . $row['role'] . '</option>';
 }
+
 ?>
 
 

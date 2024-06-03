@@ -63,6 +63,8 @@ if (isset($_REQUEST['submit'])) {
     $date = mysqli_real_escape_string($conn, $_REQUEST['date']);
     $reason = mysqli_real_escape_string($conn, $_REQUEST['reason']);
 
+    $bystore = mysqli_real_escape_string($conn, $_REQUEST['bystore']);
+
     if (!strcmp($reason, "N/A")) {
 
 
@@ -92,8 +94,8 @@ if (isset($_REQUEST['submit'])) {
 
     }
 
-    $sql = "INSERT INTO requisitionlist (byuser,item,qty,value,reason,person,slip,date,remarks,role) 
-            VALUES ('$byuser','$item','$qty','$value','$reason','$person','$slip','$date','$remarks','$role')";
+    $sql = "INSERT INTO requisitionlist (byuser,item,qty,value,reason,person,slip,date,remarks,role,bystore) 
+            VALUES ('$byuser','$item','$qty','$value','$reason','$person','$slip','$date','$remarks','$role','$bystore')";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
@@ -196,7 +198,7 @@ if (isset($_REQUEST['submit'])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="person">For Person/Dept/Company/Shop</label>
                                                     <select id="select_boxp person" name="person"
@@ -208,6 +210,32 @@ if (isset($_REQUEST['submit'])) {
                                                         <?php
                                                         include 'personselectbox.php';
                                                         ?>
+
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="bystore">By</label>
+                                                    <select  name="bystore"
+                                                        class="form-control " required="required"
+                                                      >
+                                                        <option selected disabled>Select
+                                                        </option>
+                                                        <option >ovi-store
+                                                        </option>
+                                                        <option >sharm-store
+                                                        </option>
+                                                        <option >sharm-trans
+                                                        </option>
+                                                        
+                                                        <option >dhaka
+                                                        </option>
+
+                                                       
 
                                                     </select>
 
