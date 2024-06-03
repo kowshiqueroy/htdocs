@@ -156,7 +156,7 @@ if (isset($_REQUEST['submit'])) {
                                                     <select id="select_boxi item" name="item"
                                                         class="form-control select2i" required="required"
                                                         data-error="Please specify.">
-                                                        <option value="" selected ><?php if (isset($_REQUEST['req'])) { echo $reqid;}?>
+                                                        <option  selected ><?php if (isset($_REQUEST['req'])) { echo $reqid;}?>
                                                         </option>
 
                                                         <?php
