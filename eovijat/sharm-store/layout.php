@@ -401,6 +401,11 @@ echo '
 <a href="po.php">Purchase Orders</a>
 <a href="storepurchaseget.php">PO Receive</a>
 <a href="storepurchasetotal.php">Purchase Total</a>
+<br>
+<a href="kplapp.php">KpL App</a>
+<a href="kplreport.php">KpL Report</a>
+<a href="kpldatabase.php">KpL Databae</a>
+
 
 ';
 

@@ -37,8 +37,15 @@ include "layout.php";
     
         $sql = "SELECT item FROM requisitionlist WHERE role= '$role' AND status !=1 
                 UNION
-                SELECT item FROM store WHERE outs > 0 AND person = '$role' AND status !=1 ";
+                SELECT item FROM store WHERE outs > 0 AND person = '$role' AND status !=1 LIMIT 10";
 
+
+  if(isset($_REQUEST['all'])){
+
+       $sql = "SELECT item FROM requisitionlist WHERE role= '$role' AND status !=1 
+                UNION
+                SELECT item FROM store WHERE outs > 0 AND person = '$role' AND status !=1 ";
+}
      
         $result = mysqli_query($conn, $sql);
 
@@ -129,7 +136,7 @@ include "layout.php";
 
             </table>
 
-    <input type="submit" onclick="window.location.replace('requisitionlistuser.php?all=1');"
+    <input type="submit" onclick="window.location.replace('requisitionbalanceuser.php?all=1');"
         class="btn btn-success btn-send  mt-2 btn-block" value="View Full List">
 
         </div>
