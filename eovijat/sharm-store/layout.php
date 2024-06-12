@@ -404,7 +404,7 @@ echo '
 <br>
 <a href="kplapp.php">KpL App</a>
 <a href="kplreport.php">KpL Report</a>
-<a href="kpldatabase.php">KpL Databae</a>
+<a href="kpldb.php">KpL Databae</a>
 
 
 ';

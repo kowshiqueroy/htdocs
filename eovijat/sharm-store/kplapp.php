@@ -390,7 +390,7 @@ if ($conn->query($sql3) === TRUE) {
                         <th>Value</th>
                         <th>Distance</th>
                         <th>KM/L</th>
-                        <th>V/L</th>
+                        <th>V/KM</th>
 
                         <th>Date</th>
                         <th>Submission</th>
@@ -458,7 +458,7 @@ if ($conn->query($sql3) === TRUE) {
                     <td>" . $row['value'] . "</td>
                     <td>" . $row['distance'] . "</td>
                     <td>" . round($row['distance']/$row['oil'],2)  . "</td>
-                    <td>" . round($row['distance']/$row['value'],2) . "</td>
+                    <td>" . round($row['value']/$row['distance'],2) . "</td>
                   
                     <td>" . $row['date'] . "</td>
                     <td>" . $row['subd'] . "</td>
